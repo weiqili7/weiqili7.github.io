@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    />
+    <title>私密笔记 · LWQ</title>
+    <link rel="icon" href="/favicon.png" />
+    <link rel="stylesheet" href="./private.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="返回博客首页">LWQ</a>
+      <nav aria-label="私密区导航">
+        <a href="/categories/public-notes/">公开笔记</a>
+        <button id="lock-button" class="text-button" type="button" hidden>立即锁定</button>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <section id="unlock-panel" class="unlock-card" aria-labelledby="unlock-title">
+        <p class="eyebrow">PRIVATE NOTES</p>
+        <h1 id="unlock-title">你的私密思考，只在这里解锁</h1>
+        <p class="lede">
+          标题、目录与正文均以密文发布。密钥仅保存在当前标签页；关闭标签页或手动锁定后需要重新输入。
+        </p>
+
+        <form id="unlock-form" autocomplete="off">
+          <label for="password">解锁密码</label>
+          <div class="password-row">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              minlength="4"
+              required
+              autocomplete="current-password"
+              spellcheck="false"
+            />
+            <button class="primary-button" type="submit">解锁</button>
+          </div>
+          <p id="unlock-status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="empty-panel" class="unlock-card" hidden>
+        <p class="eyebrow">PRIVATE NOTES</p>
+        <h1>私密区已经准备好</h1>
+        <p class="lede">当前还没有私密笔记。使用项目中的创建命令添加第一篇即可。</p>
+        <a class="primary-link" href="/">返回首页</a>
+      </section>
+
+      <section id="vault" class="vault" hidden>
+        <aside class="sidebar" aria-label="私密笔记列表">
+          <div class="sidebar-heading">
+            <div>
+              <p class="eyebrow">UNLOCKED</p>
+              <h1>私密笔记</h1>
+            </div>
+            <span id="note-count" class="count"></span>
+          </div>
+          <label class="search-label" for="note-search">搜索已解锁内容</label>
+          <input id="note-search" class="search" type="search" placeholder="标题或标签" />
+          <ol id="note-list" class="note-list"></ol>
+        </aside>
+
+        <article id="reader" class="reader" tabindex="-1">
+          <p class="eyebrow">PRIVATE NOTE</p>
+          <h1 id="note-title"></h1>
+          <p id="note-meta" class="note-meta"></p>
+          <nav id="note-toc" class="toc" aria-label="本页目录"></nav>
+          <div id="note-body" class="prose"></div>
+        </article>
+      </section>
+    </main>
+
+    <noscript>私密区需要 JavaScript 才能在浏览器中解密。</noscript>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

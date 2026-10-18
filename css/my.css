@@ -1,1 +1,37 @@
-/* Here is your custom css styles. */
+:root {
+  --lwq-ink: #172033;
+  --lwq-accent: #0f766e;
+  --lwq-warm: #f59e0b;
+}
+
+.bg-color {
+  background: linear-gradient(135deg, #0f766e 0%, #155e75 100%) !important;
+}
+
+.card .card-content .card-title,
+.article-content h2,
+.article-content h3 {
+  color: var(--lwq-ink);
+}
+
+.article-content a,
+.post-info a {
+  color: var(--lwq-accent) !important;
+}
+
+.btn,
+.btn-large {
+  border-radius: 999px;
+  text-transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
