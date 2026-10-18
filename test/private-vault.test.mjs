@@ -30,6 +30,10 @@ test("私密仓库不会泄露标题、目录或正文，并可用正确密码�
       readFile(join(outputDir, "vendor", "katex", "contrib", "auto-render.mjs")),
       readFile(join(outputDir, "vendor", "katex", "fonts", "KaTeX_Main-Regular.woff2")),
     ]);
+    const privateIndex = await readFile(join(outputDir, "index.html"), "utf8");
+    assert.equal(privateIndex.includes("__PRIVATE_ASSET_VERSION__"), false);
+    assert.match(privateIndex, /app\.js\?v=[a-z0-9]+/);
+    assert.match(privateIndex, /katex\.min\.css\?v=[a-z0-9]+/);
 
     const serializedVault = await readFile(join(outputDir, "vault.json"), "utf8");
     assert.equal(serializedVault.includes("隐藏标题"), false);

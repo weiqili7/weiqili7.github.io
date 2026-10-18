@@ -129,6 +129,16 @@ async function copyBrowserDependencies(outputDir) {
   ]);
 }
 
+async function writePrivateIndex(outputDir) {
+  const template = await readFile(join(projectRoot, "private-ui", "index.html"), "utf8");
+  const assetVersion = Date.now().toString(36);
+  await writeFile(
+    join(outputDir, "index.html"),
+    template.replaceAll("__PRIVATE_ASSET_VERSION__", assetVersion),
+    "utf8",
+  );
+}
+
 export async function buildVault({
   notesDir = join(projectRoot, "private-notes"),
   outputDir = join(projectRoot, "source", "private"),
@@ -151,7 +161,7 @@ export async function buildVault({
     : { version: 1, empty: true, noteCount: 0 };
 
   await Promise.all([
-    copyFile(join(projectRoot, "private-ui", "index.html"), join(outputDir, "index.html")),
+    writePrivateIndex(outputDir),
     copyFile(join(projectRoot, "private-ui", "app.js"), join(outputDir, "app.js")),
     copyFile(join(projectRoot, "private-ui", "private.css"), join(outputDir, "private.css")),
     writeFile(join(outputDir, "vault.json"), `${JSON.stringify(vault)}\n`, "utf8"),
