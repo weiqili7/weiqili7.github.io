@@ -352,6 +352,16 @@ input:focus {
   color: var(--muted);
 }
 
+.prose .katex {
+  font-size: 1.08em;
+}
+
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.4rem 0;
+}
+
 noscript {
   display: block;
   padding: 1rem;

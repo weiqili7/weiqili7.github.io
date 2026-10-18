@@ -1,5 +1,6 @@
 import { marked } from "./vendor/marked.esm.js";
 import DOMPurify from "./vendor/purify.es.mjs";
+import renderMathInElement from "./vendor/katex/contrib/auto-render.mjs";
 
 const STORAGE_KEY = "lwq-private-vault-key-v1";
 const AAD = new TextEncoder().encode("lwq-private-notes:v1");
@@ -133,6 +134,16 @@ function selectNote(note) {
   elements.meta.textContent = `${formatDate(note.date)}${tagText}`;
   const html = marked.parse(note.markdown, { gfm: true, breaks: false });
   elements.body.innerHTML = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+  renderMathInElement(elements.body, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false },
+      { left: "$", right: "$", display: false },
+    ],
+    throwOnError: false,
+    trust: false,
+  });
   buildToc();
   document.querySelectorAll(".note-button").forEach((button) => {
     button.setAttribute("aria-current", button.dataset.id === note.id ? "page" : "false");
