@@ -24,6 +24,12 @@ test("私密仓库不会泄露标题、目录或正文，并可用正确密码�
 
     const result = await buildVault({ notesDir, outputDir, password, iterations: 1_000 });
     assert.equal(result.noteCount, 1);
+    await Promise.all([
+      readFile(join(outputDir, "vendor", "katex", "katex.mjs")),
+      readFile(join(outputDir, "vendor", "katex", "katex.min.css")),
+      readFile(join(outputDir, "vendor", "katex", "contrib", "auto-render.mjs")),
+      readFile(join(outputDir, "vendor", "katex", "fonts", "KaTeX_Main-Regular.woff2")),
+    ]);
 
     const serializedVault = await readFile(join(outputDir, "vault.json"), "utf8");
     assert.equal(serializedVault.includes("隐藏标题"), false);

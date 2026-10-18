@@ -1,5 +1,5 @@
 import { createHash, pbkdf2 as pbkdf2Callback, randomBytes, createCipheriv } from "node:crypto";
-import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { cp, copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { promisify } from "node:util";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -112,10 +112,21 @@ async function copyBrowserDependencies(outputDir) {
   const require = createRequire(import.meta.url);
   const markedEntry = require.resolve("marked");
   const dompurifyEntry = require.resolve("dompurify");
+  const katexDistDir = dirname(require.resolve("katex"));
   const vendorDir = join(outputDir, "vendor");
-  await mkdir(vendorDir, { recursive: true });
-  await copyFile(join(dirname(markedEntry), "marked.esm.js"), join(vendorDir, "marked.esm.js"));
-  await copyFile(join(dirname(dompurifyEntry), "purify.es.mjs"), join(vendorDir, "purify.es.mjs"));
+  const katexDir = join(vendorDir, "katex");
+  await mkdir(join(katexDir, "contrib"), { recursive: true });
+  await Promise.all([
+    copyFile(join(dirname(markedEntry), "marked.esm.js"), join(vendorDir, "marked.esm.js")),
+    copyFile(join(dirname(dompurifyEntry), "purify.es.mjs"), join(vendorDir, "purify.es.mjs")),
+    copyFile(join(katexDistDir, "katex.mjs"), join(katexDir, "katex.mjs")),
+    copyFile(join(katexDistDir, "katex.min.css"), join(katexDir, "katex.min.css")),
+    copyFile(
+      join(katexDistDir, "contrib", "auto-render.mjs"),
+      join(katexDir, "contrib", "auto-render.mjs"),
+    ),
+    cp(join(katexDistDir, "fonts"), join(katexDir, "fonts"), { recursive: true }),
+  ]);
 }
 
 export async function buildVault({
