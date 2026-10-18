@@ -1,0 +1,136 @@
+menu:
+  首页:
+    url: /
+    icon: fas fa-home
+  公开笔记:
+    url: /categories/public-notes/
+    icon: fas fa-book-open
+  私密区:
+    url: /private/
+    icon: fas fa-lock
+  标签:
+    url: /tags/
+    icon: fas fa-tags
+  分类:
+    url: /categories/
+    icon: fas fa-bookmark
+  归档:
+    url: /archives/
+    icon: fas fa-archive
+  关于:
+    url: /about/
+    icon: fas fa-user-circle
+
+favicon: /favicon.png
+logo: /medias/logo.png
+
+cover:
+  showPrevNext: true
+  showIndicators: true
+  autoLoop: true
+  duration: 120
+  intervalTime: 7000
+  useConfig: false
+  video:
+    enable: false
+
+indexbtn:
+  enable: true
+  name: GitHub
+  icon: fab fa-github-alt
+  url: https://github.com/hac-kers
+
+socialLink:
+  github: https://github.com/hac-kers
+  email: ""
+  facebook: ""
+  twitter: ""
+  qq: ""
+  weibo: ""
+  zhihu: ""
+  rss: true
+
+subtitle:
+  enable: true
+  loop: true
+  showCursor: true
+  startDelay: 300
+  typeSpeed: 80
+  backSpeed: 40
+  sub:
+    - 公开地学习，私密地思考
+    - Learning in public, thinking in private
+
+profile:
+  avatar: /medias/avatar.jpg
+  career: Computer Science
+  introduction: 记录学习、实验与长期积累。
+
+time:
+  enable: false
+  year: 2023
+  month: 03
+  date: 28
+  hour: 00
+  minute: 00
+  second: 00
+
+dream:
+  enable: false
+
+githubLink:
+  enable: true
+  url: https://github.com/hac-kers
+  title: GitHub
+
+toc:
+  enable: true
+  heading: h2, h3, h4
+  collapseDepth: 0
+  showToggleBtn: true
+
+postInfo:
+  date: true
+  update: true
+  wordCount: true
+  totalCount: true
+  min2read: true
+  readCount: false
+
+music:
+  enable: false
+recommend:
+  enable: false
+reward:
+  enable: false
+clicklove:
+  enable: false
+sakura:
+  enable: false
+mouseStar:
+  enable: false
+snowdown:
+  enable: false
+
+gitalk:
+  enable: false
+gitment:
+  enable: false
+disqus:
+  enable: false
+livere:
+  enable: false
+valine:
+  enable: false
+waline:
+  enable: false
+twikoo:
+  enable: false
+
+banner:
+  enable: true
+  random: true
+translate:
+  enable: false
+instantpage:
+  enable: true

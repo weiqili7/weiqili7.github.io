@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LWQ</title>
+  
+  
+  <link href="https://lwqblog.top/atom.xml" rel="self"/>
+  
+  <link href="https://lwqblog.top/"/>
+  <updated>2024-03-12T03:20:43.377Z</updated>
+  <id>https://lwqblog.top/</id>
+  
+  <author>
+    <name>寒风渐微凉</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>高精度加法（Java）</title>
+    <link href="https://lwqblog.top/2024/03/12/gao-jing-du-jia-fa-java/"/>
+    <id>https://lwqblog.top/2024/03/12/gao-jing-du-jia-fa-java/</id>
+    <published>2024-03-12T02:29:33.000Z</published>
+    <updated>2024-03-12T03:20:43.377Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://www.acwing.com/problem/content/793/&quot;&gt;原题链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;构造方法&lt;/p&gt;
+&lt;p&gt;BigInteger(byte[]</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="Java" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/Java/"/>
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="Java" scheme="https://lwqblog.top/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WEB安全-SQL布尔盲注</title>
+    <link href="https://lwqblog.top/2023/12/22/web-an-quan-sql-bu-er-mang-zhu/"/>
+    <id>https://lwqblog.top/2023/12/22/web-an-quan-sql-bu-er-mang-zhu/</id>
+    <published>2023-12-21T16:14:17.000Z</published>
+    <updated>2023-12-21T16:39:03.094Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;布尔盲注适用于回显为“查询成功”和“查询失败”，而不是具体的值&lt;/p&gt;
+&lt;h2 id=&quot;思路步骤&quot;&gt;&lt;a href=&quot;#思路步骤&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://lwqblog.top/categories/CTF/"/>
+    
+    <category term="WEB Security" scheme="https://lwqblog.top/categories/CTF/WEB-Security/"/>
+    
+    
+    <category term="CTF" scheme="https://lwqblog.top/tags/CTF/"/>
+    
+    <category term="WEB Security" scheme="https://lwqblog.top/tags/WEB-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WEB安全-SQL手工注入漏洞测试(MySQL数据库)</title>
+    <link href="https://lwqblog.top/2023/12/21/web-an-quan-sql-shou-gong-zhu-ru-lou-dong-ce-shi-mysql-shu-ju-ku/"/>
+    <id>https://lwqblog.top/2023/12/21/web-an-quan-sql-shou-gong-zhu-ru-lou-dong-ce-shi-mysql-shu-ju-ku/</id>
+    <published>2023-12-21T15:24:52.000Z</published>
+    <updated>2023-12-21T16:13:23.524Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;靶场&quot;&gt;&lt;a href=&quot;#靶场&quot; class=&quot;headerlink&quot; title=&quot;靶场&quot;&gt;&lt;/a&gt;靶场&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.mozhe.cn/bug/detail/82&quot;&gt;墨者学院&lt;/a&gt;&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://lwqblog.top/categories/CTF/"/>
+    
+    <category term="WEB Security" scheme="https://lwqblog.top/categories/CTF/WEB-Security/"/>
+    
+    
+    <category term="CTF" scheme="https://lwqblog.top/tags/CTF/"/>
+    
+    <category term="WEB Security" scheme="https://lwqblog.top/tags/WEB-Security/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>密码学实验--3轮差分攻击DES算法</title>
+    <link href="https://lwqblog.top/2023/12/15/mi-ma-xue-shi-yan-3-lun-chai-fen-gong-ji-des-suan-fa/"/>
+    <id>https://lwqblog.top/2023/12/15/mi-ma-xue-shi-yan-3-lun-chai-fen-gong-ji-des-suan-fa/</id>
+    <published>2023-12-15T07:18:59.000Z</published>
+    <updated>2024-01-03T12:26:33.912Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;代码分析&quot;&gt;&lt;a href=&quot;#代码分析&quot; class=&quot;headerlink&quot; title=&quot;代码分析&quot;&gt;&lt;/a&gt;代码分析&lt;/h2&gt;&lt;pre class=&quot;line-numbers language-c&quot; data-language=&quot;c&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="cryptography" scheme="https://lwqblog.top/categories/cryptography/"/>
+    
+    
+    <category term="cryptography" scheme="https://lwqblog.top/tags/cryptography/"/>
+    
+    <category term="experiment" scheme="https://lwqblog.top/tags/experiment/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络课间实验</title>
+    <link href="https://lwqblog.top/2023/12/15/ji-suan-ji-wang-luo-ke-jian-shi-yan/"/>
+    <id>https://lwqblog.top/2023/12/15/ji-suan-ji-wang-luo-ke-jian-shi-yan/</id>
+    <published>2023-12-15T06:10:10.000Z</published>
+    <updated>2023-12-15T06:48:06.361Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-实验内容&quot;&gt;&lt;a href=&quot;#1-实验内容&quot; class=&quot;headerlink&quot; title=&quot;1 实验内容&quot;&gt;&lt;/a&gt;1 实验内容&lt;/h2&gt;&lt;p&gt;一、 ICMP报文分析&lt;/p&gt;
+&lt;p&gt;\1.</summary>
+        
+      
+    
+    
+    
+    <category term="computer networks" scheme="https://lwqblog.top/categories/computer-networks/"/>
+    
+    
+    <category term="Experiment" scheme="https://lwqblog.top/tags/Experiment/"/>
+    
+    <category term="computer networks" scheme="https://lwqblog.top/tags/computer-networks/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity参考学习链接</title>
+    <link href="https://lwqblog.top/2023/11/22/unity-can-kao-xue-xi-lian-jie/"/>
+    <id>https://lwqblog.top/2023/11/22/unity-can-kao-xue-xi-lian-jie/</id>
+    <published>2023-11-22T09:39:49.000Z</published>
+    <updated>2023-11-22T09:41:13.253Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Unity" scheme="https://lwqblog.top/categories/Unity/"/>
+    
+    <category term="Game_dev" scheme="https://lwqblog.top/categories/Unity/Game-dev/"/>
+    
+    
+    <category term="Unity" scheme="https://lwqblog.top/tags/Unity/"/>
+    
+    <category term="Game_dev" scheme="https://lwqblog.top/tags/Game-dev/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity学习-实现飞行和射击</title>
+    <link href="https://lwqblog.top/2023/11/22/unity-xue-xi-shi-xian-fei-xing-he-she-ji/"/>
+    <id>https://lwqblog.top/2023/11/22/unity-xue-xi-shi-xian-fei-xing-he-she-ji/</id>
+    <published>2023-11-22T09:33:47.000Z</published>
+    <updated>2023-11-26T15:54:59.362Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;飞行和射击&quot;&gt;&lt;a href=&quot;#飞行和射击&quot; class=&quot;headerlink&quot; title=&quot;飞行和射击&quot;&gt;&lt;/a&gt;飞行和射击&lt;/h2&gt;&lt;p&gt;要实现的效果：按住空格可以往上飞&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Unity" scheme="https://lwqblog.top/categories/Unity/"/>
+    
+    <category term="Project_practice" scheme="https://lwqblog.top/categories/Unity/Project-practice/"/>
+    
+    <category term="Game_dev" scheme="https://lwqblog.top/categories/Unity/Project-practice/Game-dev/"/>
+    
+    
+    <category term="Unity" scheme="https://lwqblog.top/tags/Unity/"/>
+    
+    <category term="Game_dev" scheme="https://lwqblog.top/tags/Game-dev/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OpenCV 4 learning notes</title>
+    <link href="https://lwqblog.top/2023/11/20/opencv-4-learning-notes/"/>
+    <id>https://lwqblog.top/2023/11/20/opencv-4-learning-notes/</id>
+    <published>2023-11-20T09:03:16.000Z</published>
+    <updated>2023-11-21T08:16:09.710Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;处理文件、摄像头和GUI&quot;&gt;&lt;a href=&quot;#处理文件、摄像头和GUI&quot; class=&quot;headerlink&quot; title=&quot;处理文件、摄像头和GUI&quot;&gt;&lt;/a&gt;处理文件、摄像头和GUI&lt;/h2&gt;&lt;h3 id=&quot;读取-x2F-写入图像文件&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="OpenCV" scheme="https://lwqblog.top/categories/OpenCV/"/>
+    
+    
+    <category term="OpenCV" scheme="https://lwqblog.top/tags/OpenCV/"/>
+    
+    <category term="CV" scheme="https://lwqblog.top/tags/CV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Datawhale智能汽车多模态(1)--读懂Baseline</title>
+    <link href="https://lwqblog.top/2023/11/15/datawhale-zhi-neng-qi-che-duo-mo-tai-1-du-dong-baseline/"/>
+    <id>https://lwqblog.top/2023/11/15/datawhale-zhi-neng-qi-che-duo-mo-tai-1-du-dong-baseline/</id>
+    <published>2023-11-15T14:10:44.000Z</published>
+    <updated>2023-11-15T14:53:15.534Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;赛题：智能驾驶汽车虚拟仿真视频数据理解赛道&quot;&gt;&lt;a href=&quot;#赛题：智能驾驶汽车虚拟仿真视频数据理解赛道&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="DL" scheme="https://lwqblog.top/categories/DL/"/>
+    
+    
+    <category term="clip" scheme="https://lwqblog.top/tags/clip/"/>
+    
+    <category term="DL" scheme="https://lwqblog.top/tags/DL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>位运算</title>
+    <link href="https://lwqblog.top/2023/11/01/wei-yun-suan/"/>
+    <id>https://lwqblog.top/2023/11/01/wei-yun-suan/</id>
+    <published>2023-11-01T13:50:01.000Z</published>
+    <updated>2023-11-02T12:47:03.230Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;原题&quot;&gt;&lt;a href=&quot;#原题&quot; class=&quot;headerlink&quot; title=&quot;原题&quot;&gt;&lt;/a&gt;原题&lt;/h3&gt;&lt;p&gt;给定一个长度为 n 的数列，请你求出数列中每个数的二进制表示中 11 的个数。&lt;/p&gt;
+&lt;h4 id=&quot;输入格式&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二分(算法)</title>
+    <link href="https://lwqblog.top/2023/10/23/er-fen-suan-fa/"/>
+    <id>https://lwqblog.top/2023/10/23/er-fen-suan-fa/</id>
+    <published>2023-10-23T06:16:44.000Z</published>
+    <updated>2023-10-23T08:31:04.762Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://www.acwing.com/problem/content/791/&quot;&gt;原题&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;代码&quot;&gt;&lt;a href=&quot;#代码&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="二分" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/"/>
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="二分" scheme="https://lwqblog.top/tags/%E4%BA%8C%E5%88%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LaTex写论文阅读笔记_文档结构</title>
+    <link href="https://lwqblog.top/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/"/>
+    <id>https://lwqblog.top/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/</id>
+    <published>2023-10-21T07:00:21.000Z</published>
+    <updated>2023-10-21T16:00:26.009Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;文档结构&quot;&gt;&lt;a href=&quot;#文档结构&quot; class=&quot;headerlink&quot; title=&quot;文档结构&quot;&gt;&lt;/a&gt;文档结构&lt;/h2&gt;&lt;h3 id=&quot;基本要素&quot;&gt;&lt;a href=&quot;#基本要素&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="LaTex" scheme="https://lwqblog.top/categories/LaTex/"/>
+    
+    
+    <category term="LaTex" scheme="https://lwqblog.top/tags/LaTex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>软件安全实验_1</title>
+    <link href="https://lwqblog.top/2023/10/20/ruan-jian-an-quan-shi-yan-1/"/>
+    <id>https://lwqblog.top/2023/10/20/ruan-jian-an-quan-shi-yan-1/</id>
+    <published>2023-10-20T03:00:18.000Z</published>
+    <updated>2023-10-20T03:33:50.484Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;实验1-磁盘结构与文件系统&quot;&gt;&lt;a href=&quot;#实验1-磁盘结构与文件系统&quot; class=&quot;headerlink&quot; title=&quot;实验1 磁盘结构与文件系统&quot;&gt;&lt;/a&gt;实验1 磁盘结构与文件系统&lt;/h1&gt;&lt;h2 id=&quot;实验目的&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="软件安全" scheme="https://lwqblog.top/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="软件安全" scheme="https://lwqblog.top/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pyside6实践_1</title>
+    <link href="https://lwqblog.top/2023/10/19/pyside6-shi-jian-1/"/>
+    <id>https://lwqblog.top/2023/10/19/pyside6-shi-jian-1/</id>
+    <published>2023-10-19T13:54:08.000Z</published>
+    <updated>2023-10-19T15:55:13.410Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;做实验的时候想拷贝电子参考书代码的时候发现代码都数字序号，手动删除太麻烦了，于是边想着写一个python脚本删除序号，然后不知道怎么突发奇想想试试Python GUI。&lt;/p&gt;
+&lt;p&gt;也是第一次接触，故记录一下。&lt;/p&gt;
+&lt;h3 id=&quot;源代码&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="PySide6" scheme="https://lwqblog.top/categories/PySide6/"/>
+    
+    <category term="Windows应用开发" scheme="https://lwqblog.top/categories/PySide6/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/"/>
+    
+    
+    <category term="PySide6" scheme="https://lwqblog.top/tags/PySide6/"/>
+    
+    <category term="Windows应用开发" scheme="https://lwqblog.top/tags/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PySide6上手</title>
+    <link href="https://lwqblog.top/2023/10/19/pyside6-shang-shou/"/>
+    <id>https://lwqblog.top/2023/10/19/pyside6-shang-shou/</id>
+    <published>2023-10-19T03:09:44.000Z</published>
+    <updated>2023-10-19T15:36:20.243Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;创建第一个QtWidgets程序&quot;&gt;&lt;a href=&quot;#创建第一个QtWidgets程序&quot; class=&quot;headerlink&quot; title=&quot;创建第一个QtWidgets程序&quot;&gt;&lt;/a&gt;创建第一个QtWidgets程序&lt;/h1&gt;&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="PySide6" scheme="https://lwqblog.top/categories/PySide6/"/>
+    
+    
+    <category term="PySide6" scheme="https://lwqblog.top/tags/PySide6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ruby入门学习(1)</title>
+    <link href="https://lwqblog.top/2023/10/17/ruby-ru-men-xue-xi-1/"/>
+    <id>https://lwqblog.top/2023/10/17/ruby-ru-men-xue-xi-1/</id>
+    <published>2023-10-17T12:07:53.000Z</published>
+    <updated>2023-10-19T14:17:27.954Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;块&quot;&gt;&lt;a href=&quot;#块&quot; class=&quot;headerlink&quot; title=&quot;块&quot;&gt;&lt;/a&gt;块&lt;/h1&gt;&lt;h3 id=&quot;yield用法&quot;&gt;&lt;a href=&quot;#yield用法&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Ruby" scheme="https://lwqblog.top/categories/Ruby/"/>
+    
+    
+    <category term="Ruby" scheme="https://lwqblog.top/tags/Ruby/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>图像分类(VGG)(1)</title>
+    <link href="https://lwqblog.top/2023/10/14/tu-xiang-fen-lei-vgg-1/"/>
+    <id>https://lwqblog.top/2023/10/14/tu-xiang-fen-lei-vgg-1/</id>
+    <published>2023-10-14T07:17:04.000Z</published>
+    <updated>2023-10-14T08:58:58.637Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;已完成训练的VGG模型的使用方法&quot;&gt;&lt;a href=&quot;#已完成训练的VGG模型的使用方法&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="DL" scheme="https://lwqblog.top/categories/DL/"/>
+    
+    
+    <category term="DL" scheme="https://lwqblog.top/tags/DL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深度学习入门笔记</title>
+    <link href="https://lwqblog.top/2023/10/14/shen-du-xue-xi-ru-men-bi-ji/"/>
+    <id>https://lwqblog.top/2023/10/14/shen-du-xue-xi-ru-men-bi-ji/</id>
+    <published>2023-10-14T06:02:17.000Z</published>
+    <updated>2023-10-14T14:31:15.254Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;激活函数&quot;&gt;&lt;a href=&quot;#激活函数&quot; class=&quot;headerlink&quot; title=&quot;激活函数&quot;&gt;&lt;/a&gt;激活函数&lt;/h2&gt;&lt;p&gt;activation function</summary>
+        
+      
+    
+    
+    
+    <category term="DL" scheme="https://lwqblog.top/categories/DL/"/>
+    
+    
+    <category term="DL" scheme="https://lwqblog.top/tags/DL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>二叉树遍历(算法)</title>
+    <link href="https://lwqblog.top/2023/04/13/er-cha-shu-bian-li-suan-fa/"/>
+    <id>https://lwqblog.top/2023/04/13/er-cha-shu-bian-li-suan-fa/</id>
+    <published>2023-04-13T01:51:24.000Z</published>
+    <updated>2023-10-23T08:30:45.433Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;二叉树遍历&quot;&gt;&lt;a href=&quot;#二叉树遍历&quot; class=&quot;headerlink&quot; title=&quot;二叉树遍历&quot;&gt;&lt;/a&gt;二叉树遍历&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="二叉树" scheme="https://lwqblog.top/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+    
+    <category term="算法" scheme="https://lwqblog.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="二叉树" scheme="https://lwqblog.top/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>动手学深度学习（1）</title>
+    <link href="https://lwqblog.top/2023/04/12/dong-shou-xue-shen-du-xue-xi-1/"/>
+    <id>https://lwqblog.top/2023/04/12/dong-shou-xue-shen-du-xue-xi-1/</id>
+    <published>2023-04-12T11:54:50.000Z</published>
+    <updated>2023-10-19T14:21:42.864Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;预备知识&quot;&gt;&lt;a href=&quot;#预备知识&quot; class=&quot;headerlink&quot; title=&quot;预备知识&quot;&gt;&lt;/a&gt;预备知识&lt;/h1&gt;&lt;h2 id=&quot;数据操作&quot;&gt;&lt;a href=&quot;#数据操作&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="《动手学深度学习》自学笔记" scheme="https://lwqblog.top/categories/%E3%80%8A%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%8B%E8%87%AA%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="深度学习" scheme="https://lwqblog.top/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+</feed>

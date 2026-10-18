@@ -1,0 +1,1434 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="OpenCV 4 learning notes, LWQ">
+    <meta name="description" content="处理文件、摄像头和GUI读取/写入图像文件​	图像可以从一种文件格式加载并保存为另一种格式。例如，把一 幅图像从PNG转换为JPEG
+import cv2
+image = cv2.imread(&#39;xxx.png&#39;)
+cv2/imwrite(">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>OpenCV 4 learning notes | LWQ</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LWQ" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">LWQ</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">LWQ</div>
+        <div class="logo-desc">
+            
+            我要上UT
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hac-kers" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hac-kers" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">OpenCV 4 learning notes</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/OpenCV/">
+                                <span class="chip bg-color">OpenCV</span>
+                            </a>
+                        
+                            <a href="/tags/CV/">
+                                <span class="chip bg-color">CV</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/OpenCV/" class="post-category">
+                                OpenCV
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-11-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="处理文件、摄像头和GUI"><a href="#处理文件、摄像头和GUI" class="headerlink" title="处理文件、摄像头和GUI"></a>处理文件、摄像头和GUI</h2><h3 id="读取-x2F-写入图像文件"><a href="#读取-x2F-写入图像文件" class="headerlink" title="读取/写入图像文件"></a>读取/写入图像文件</h3><p>​	图像可以从一种文件格式加载并保存为另一种格式。例如，把一 幅图像从PNG转换为JPEG</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+image <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xxx.png'</span><span class="token punctuation">)</span>
+cv2<span class="token operator">/</span>imwrite<span class="token punctuation">(</span><span class="token string">'xxx.jpg'</span><span class="token punctuation">,</span> image<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>默认情况下，imread返回BGR格式的图像，即使该文件使用的是灰度格式。BGR表示与红–绿–蓝（Red-Green-Blue，RGB）相同的颜色模型，只是字节顺序相反。 我们还可以指定imread的模式，所支持的选项包括：</p>
+<ul>
+<li>cv2.IMREAD_COLOR：该模式是默认选项，提供3通道的BGR图像，每个通道一个8位值（0～255）(dtype=uint8)。</li>
+<li>cv2.IMREAD_GRAYSCALE：该模式提供8位灰度图像。</li>
+<li>cv2.IMREAD_ANYCOLOR：该模式提供每个通道8位的BGR图像或者8位灰度图像，具体取决于文件中的元数据。</li>
+<li>cv2.IMREAD_UNCHANGED：该模式读取所有的图像数据，包括作为第4通道的α或透明度通道（如果有的话）。</li>
+<li>cv2.IMREAD_ANYDEPTH：该模式加载原始位深度的灰度图像。例如，如果文件以这种格式表示一幅图像，那么它提供每个通道16位的一幅灰度图像。</li>
+<li>cv2.IMREAD_ANYDEPTH｜cv2.IMREAD_COLOR：该组合模式加载原始位深度的BGR彩色图像。</li>
+<li>cv2.IMREAD_REDUCED_GRAYSCALE_2：该模式加载的灰度 图像的分辨率是原始分辨率的1/2。例如，如果文件包括一幅640×480 的图像，那么它加载的是一幅320×240的图像。</li>
+<li>cv2.IMREAD_REDUCED_COLOR_2：该模式加载每个通道8位 的BGR彩色图像，分辨率是原始图像的1/2。</li>
+<li>cv2.IMREAD_REDUCED_GRAYSCALE_4：该模式加载灰度图像，分辨率是原始图像的1/4。</li>
+<li>cv2.IMREAD_REDUCED_COLOR_4：该模式加载每个通道8位的彩色图像，分辨率是原始图像的1/4。</li>
+<li>cv2.IMREAD_REDUCED_GRAYSCALE_8：该模式加载灰度图像，分辨率是原始图像的1/8。</li>
+<li>·cv2.IMREAD_REDUCED_COLOR_8：该模式加载每个通道8位的彩色图像，分辨率为原始图像的1/8。</li>
+</ul>
+<p>举个例子，我们将一个PNG文件加载为灰度图像（在此过程中会丢 失所有颜色信息），再将其保存为一个灰度PNG图像：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+grayImage <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xxx.png'</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>IMAGE_GRAYSCALE<span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>imwrite<span class="token punctuation">(</span><span class="token string">'xxx.png'</span><span class="token punctuation">,</span> grayImage<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>imwrite()函数要求图像为BGR格式或者灰度格式，每个通道具有输出格式可以支持的特定位数。例如，BMP文件格式要求每个通道8位，而PNG允许每个通道8位或16位。</p>
+<h3 id="在图像和原始字节之间进行转换"><a href="#在图像和原始字节之间进行转换" class="headerlink" title="在图像和原始字节之间进行转换"></a>在图像和原始字节之间进行转换</h3><p>​	从概念上讲，一个字节就是0～255范围内的一个整数。目前，在实时图形应用程序中，像素通常由每个通道一个字节来表示，但是也可以使用其他表示方式。</p>
+<p>​	OpenCV图像是numpy.array类型的二维或者三维数组。8位灰度图像是包含字节值的一个二维数组。24位的BGR图像是一个三维数组，也包含字节值。我们可以通过使用类似于image[0,0]或者image[0,0,0] 的表达式来访问这些值。第一个索引是像素的y坐标或者行，0表示顶部。第二个索引是像素的x坐标或者列，0表示最左边。第三个索引（如果有的话）表示一个颜色通道。可以用下面的笛卡儿坐标系可视化数组的三维空间。</p>
+<p><img src="/2023/11/20/opencv-4-learning-notes/image-20231120184508768.png"></p>
+<p>​	例如，在左上角为白色像素的8位灰度图像中，image[0,0]是255。在左上角为蓝色像素的24位（每个通道8位）BGR图像中，image[0,0]是[255,0,0]。</p>
+<p>假设图像的每个通道有8位，我们可以将其强制转换为标准的 Python bytearray对象（一维的）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">byteArray <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>相反，假设bytearray以一种合适的顺序包含字节，我们对其进行 强制转换后再将其变维，可以得到一幅numpy.array类型的图像：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">grayImage <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span>grayByteArray<span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>height<span class="token punctuation">,</span> weight<span class="token punctuation">)</span>
+bgrImage <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span>bgrByteArray<span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>height<span class="token punctuation">,</span> weight<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>举个更完整的例子，我们将包含随机字节的bytearray转换为灰度 图像和BGR图像：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+<span class="token keyword">import</span> numpy
+<span class="token keyword">import</span> os
+
+<span class="token comment"># make an array of 120,000 random bytes.</span>
+randoByteArray <span class="token operator">=</span> <span class="token builtin">bytearray</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>urandom<span class="token punctuation">(</span><span class="token number">120000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+flatNumpyArray <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span>randomByteArray<span class="token punctuation">)</span>
+
+<span class="token comment"># convert the array to make a 400x300 grascale image</span>
+grayImage <span class="token operator">=</span> flatNumpyArray<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">,</span><span class="token number">400</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>imwrite<span class="token punctuation">(</span><span class="token string">'xxx.png'</span><span class="token punctuation">,</span> grayImage<span class="token punctuation">)</span>
+
+<span class="token comment"># convert the array to make a 400x100 color image</span>
+bgrImage <span class="token operator">=</span> flatNumpyArray<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">400</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>imwrite<span class="token punctuation">(</span><span class="token string">'xxx.png'</span><span class="token punctuation">,</span> bgrImage<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>此处，我们使用Python的标准os.urandom函数生成随机的原始字节序列，bytearray()组成字节数组，然后再将其转换成NumPy数组。。请注意，也可以使用像 numpy.random.randint(0,256,120000).reshape(300,400)这样的语句直接（而且更有效）生成随机NumPy数组。我们使用os.urandom的唯一原因是： 这有助于展示原始字节的转换。</p>
+<p>注目：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+
+random_bytes <span class="token operator">=</span> os<span class="token punctuation">.</span>urandom<span class="token punctuation">(</span><span class="token number">12000</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>random_bytes<span class="token punctuation">)</span>
+<span class="token comment"># the result of output is like</span>
+<span class="token comment"># b'\x9e\xfa\x85\x88\xab\x1e\x1a\xdb\xe4\x0c\x8f...'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于 <code>numpy.random.randint(0, 256, 120000)</code> 这个代码，生成的数组维度是 <code>(120000,)</code>，即一个一维数组，包含 120,000 个元素。</p>
+<p>在 NumPy 中，生成的随机数组的维度由传递给 <code>numpy.random.randint()</code> 函数的参数决定。第一个参数是随机数的最小值（包含），第二个参数是随机数的最大值（不包含），第三个参数是生成的随机数的数量。</p>
+<p>在这个例子中，我们传递了参数 <code>(0, 256, 120000)</code>，因此生成了一个包含 120,000 个随机整数的一维数组。每个随机整数的取值范围是 0 到 255（包含 0 和 255）。</p>
+<p>请注意，如果我们在 <code>numpy.random.randint()</code> 中传递了其他维度参数，例如 <code>(0, 256, (100, 200))</code>，则会生成一个具有 <code>(100, 200)</code> 维度的二维数组，其中包含随机整数。根据需要，您可以调整维度参数来生成不同形状的随机数组。</p>
+<h3 id="基于numpy-array访问图像数据"><a href="#基于numpy-array访问图像数据" class="headerlink" title="基于numpy.array访问图像数据"></a>基于numpy.array访问图像数据</h3><p>​	我们已经知道在OpenCV中加载图像最简单（也是最常见）的方法是使用imread函数。我们还知道这将返回一幅图像，它实际上是一个数组（是二维还是三维取决于传递给imread的参数）。</p>
+<p>​	numpy.array类对数组操作进行极大的优化，它允许某些类型的批量操作，而这些操作在普通Python列表中是不可用的。这些类型的numpy.array都是OpenCV中特定于数组类型的操作，对于图像操作来说很方便。但是，我们还是从一个基本的例子开始，逐步探讨图像操作。假设你想操作BGR图像的（0,0）坐标处的像素，并将其转换成白色像素：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+img<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	如果将修改后的图像保存到文件后再查看该图像，你会在图像的左上角看到一个白点。当然，这种修改并不是很有用，但是它显示了某种修改的可能性。现在，我们利用numpy.array的功能在数组上执行变换的速度比普通的Python列表要快得多。</p>
+<p>​	假设你想更改某一特定像素的蓝色值，例如（150,120）坐标处的像素。numpy.array类型提供了一个方便的方法item，它有三个参数：x（或者left）位置、y（或者top）位置以及数组中（x,y）位置的索引（请记住，在BGR图像中，某个特定位置处的数据是一个三元数组， 包含按照B、G和R顺序排列的值），并返回索引位置的值。另一个方法 itemset可以将某一特定像素的特定通道的值设置为指定的值。 itemset有两个参数：三元组（x、y和索引）以及新值。</p>
+<p>​	在下面的例子中，我们将（150,120）处的蓝色通道值从其当前值 更改为255：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+img<span class="token punctuation">.</span>itemset<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">150</span><span class="token punctuation">,</span><span class="token number">120</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span> <span class="token comment"># sets the value of a pi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	对于修改数组中的单个元素，itemset方法比我们在本节第一个例子中看到的索引语法要快一些。</p>
+<p>​	同样，修改数组的一个元素本身并没有太大意义，但是它确实打开了一个充满可能性的世界。然而，就性能而言，这只适合于感兴趣的小区域。当需要操作整个图像或者感兴趣的大区域时，建议使用 OpenCV的函数或者NumPy的数组切片。NumPy的数组切片允许指定索引的范围。我们来考虑使用数组切片来操作颜色通道的一个例子。将一 幅图像的所有G（绿色）值都设置为0非常简单，如下面的代码所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+im <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+img<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	这段代码执行了一个相当重要的操作，而且很容易理解。相关的代码行是最后一行，它指示程序从所有行和列中获取所有像素，并把绿色值（在三元BGR数组的一个索引处）设置为0。如果显示此图像， 你会注意到绿色完全消失了。</p>
+<p>​	通过使用NumPy的数组切片访问原始像素，我们可以做一些有趣的事情，其中之一是定义感兴趣区域（Region Of Interest，ROI）。一 旦定义了感兴趣区域，就可以执行一系列的操作了。例如，可以把这个区域绑定到一个变量，定义第二个区域，将第一个区域的值（感兴趣的区域的值my_roi）赋给第二个区域（从而将图像的一部分复制到图像的另一个位置）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+my_roi <span class="token operator">=</span> img<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">:</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">:</span><span class="token number">100</span><span class="token punctuation">]</span> <span class="token comment">#定义感兴趣区域</span>
+img<span class="token punctuation">[</span><span class="token number">300</span><span class="token punctuation">:</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">:</span><span class="token number">400</span><span class="token punctuation">]</span> <span class="token operator">=</span> my_roi <span class="token comment">#实现将图像一部分复制到图像另一个位置</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	确保两个区域在大小上一致很重要。如果大小不一致，NumPy会（立刻）控诉这两个形状不匹配。</p>
+<p>​	最后，我们可以访问numpy.array的属性，如下列代码所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>size<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>dtype<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	这三个属性的定义如下：</p>
+<ul>
+<li>shape：描述数组形状的一个元组。对于图像，它（依次）包括高度、宽度、通道数（如果是彩色图像的话）。shape元组的长度是确定图像是灰度的还是彩色的一种有用方法。对于灰度图像， <code>len(shape)==2</code>，对于彩色图像，<code>len(shape)==3</code>。</li>
+<li>size：数组中的元素数。对于灰度图像，这和像素数是一样的。 对于BGR图像，它是像素数的3倍，因为每个像素都由3个元素（B、G 和R）表示。</li>
+<li>·dtype：数组元素的数据类型。对于每个通道8位的图像，数据类型是numpy.uint8。</li>
+</ul>
+<p>总之，强烈建议在使用OpenCV时，了解NumPy的一般情况以及 numpy.array的特殊情况。这个类是Python中使用OpenCV进行所有图像处理的基础。</p>
+<h3 id="读取-x2F-写入视频文件"><a href="#读取-x2F-写入视频文件" class="headerlink" title="读取/写入视频文件"></a>读取/写入视频文件</h3><p>​	OpenCV提供了VideoCapture和VideoWriter类，支持各种视频文件格式。支持的格式取决于操作系统和OpenCV的构建配置，但是通常情况下，假设支持AVI格式是安全的。通过它的read方法，VideoCapture对象可以依次查询新的帧，直到到达视频文件的末尾。每一帧都是一幅BGR格式的图像。</p>
+<p>​	相反，图像可以传递给VideoWriter类的write方法，该方法将图像添加到VideoWriter的文件中。我们来看一个例子，从一个AVI文件读取帧，再用YUV编码将其写入另一个文件：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+videoCapture <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span><span class="token string">'xx.avi'</span><span class="token punctuation">)</span>
+fps <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FPS<span class="token punctuation">)</span>
+size <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_WIDTH<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+videoWirter <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoWriter<span class="token punctuation">(</span><span class="token string">'xx.avi'</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>VideoWriter_fourcc<span class="token punctuation">(</span><span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>fps<span class="token punctuation">,</span> size<span class="token punctuation">)</span>
+
+success<span class="token punctuation">,</span> frame <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">while</span> success<span class="token punctuation">:</span> <span class="token comment"># Loop until there are no more frames.</span>
+    videoWriter<span class="token punctuation">.</span>wirte<span class="token punctuation">(</span>frame<span class="token punctuation">)</span>
+    success<span class="token punctuation">,</span> frame <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	VideoWriter类的构造函数的参数值得特别注意。必须指定一个视频文件的名称。具有此名称的所有之前存在的文件都将被覆盖。还必须指定一个视频编解码器。可用的编解码器因系统而异。支持的选项可能包括以下内容：</p>
+<ul>
+<li>·0：这个选项表示未压缩的原始视频文件。文件扩展名应该是.avi。</li>
+<li>cv2.VideoWriter_fourcc(‘I’,’4’,’2’,’0’)：这个选项表示未压缩的YUV编 码，4:2:0色度抽样。这种编码是广泛兼容的，但是会产生大的文件。文件扩展名应该是.avi。</li>
+<li>cv2.VideoWriter_fourcc(‘P’,’I’,’M’,’1’)：这个选项是MPEG-1。文件扩 展名应该是.avi。</li>
+<li>cv2.VideoWriter_fourcc(‘X’,’V’,’I’,’D’)：这个选项是一种相对较旧的 MPEG-4编码。如果想限制生成的视频大小，这是一个不错的选项。文件扩展名应该是.avi。</li>
+<li>cv2.VideoWriter_fourcc(‘M’,’P’,’4’,’V’)：这个选项是另一种相对较旧 的MPEG-4编码。如果想限制生成的视频大小，这是一个不错的选项。 文件扩展名应该是.mp4。</li>
+<li>cv2.VideoWriter_fourcc(‘X’,’2’,’6’,’4’)：这个选项是一种相对较新的 MPEG-4编码。如果想限制生成的视频大小，这可能是最佳的选项。文件扩展名应该是.mp4。</li>
+<li>·cv2.VideoWriter_fourcc(‘T’,’H’,’E’,’O’)：这个选项是Ogg Vorbis。文 件扩展名应该是.ogv。</li>
+<li>·cv2.VideoWriter_fourcc(‘F’,’L’,’V’,’1’)：这个选项表示Flash视频。文 件扩展名应该是.flv。</li>
+</ul>
+<p>​	帧率和帧大小也必须指定。因为我们是从另一个视频复制的，所以这些属性可以从VideoCapture类的get方法读取。</p>
+<h3 id="捕捉摄像头帧"><a href="#捕捉摄像头帧" class="headerlink" title="捕捉摄像头帧"></a>捕捉摄像头帧</h3><p>​	摄像头帧流也可以用VideoCapture对象来表示。但是，对于摄像头，我们通过传递摄像头设备索引（而不是视频文件名称）来构造 VideoCapture对象。我们来考虑下面这个例子，它从摄像头抓取10秒的视频，并将其写入AVI文件。代码与上节的示例（从视频文件获取的，而不是从摄像头中获取的）类似：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+videoCapture <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+fps <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FPS<span class="token punctuation">)</span>
+size <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_WIDTH<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>videoCapture<span class="token punctuation">.</span>get<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>CAP_PROP_FRAME_HEIGHT<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+videoWirter <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoWriter<span class="token punctuation">(</span><span class="token string">'xx.avi'</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>VideoWriter_fourcc<span class="token punctuation">(</span><span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token string">'4'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>fps<span class="token punctuation">,</span> size<span class="token punctuation">)</span>
+
+success<span class="token punctuation">,</span> frame <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+numFrameRemaining <span class="token operator">=</span> <span class="token number">10</span> <span class="token operator">*</span> fps <span class="token operator">-</span> <span class="token number">1</span> <span class="token comment"># 10 seconds of frames</span>
+<span class="token keyword">while</span> success <span class="token keyword">and</span> numFrameRemaining <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+    videoWriter<span class="token punctuation">.</span>wirte<span class="token punctuation">(</span>frame<span class="token punctuation">)</span>
+    success<span class="token punctuation">,</span> frame <span class="token operator">=</span> videoCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    numFrameRemaining <span class="token operator">-=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Tip:对于某些系统上的一些摄像头， cameraCapture.get(cv2.CAP_PROP_FRAME_WIDTH)和 cameraCapture.get(cv2.CAP_PROP_FRAME_HEIGHT)可能会返回不准确的结果。为了更加确定图像的实际大小，可以先抓取一帧，再用像 h,w=frame.shape[:2]这样的代码来获得图像的高度和宽度。有时，你可 能会遇到摄像头在开始产生大小稳定的好帧之前，产生一些大小不稳 定的坏帧的情况。如果你关心的是如何防范这种情况，在开始捕捉会话时你可能想要读取并忽略一些帧。</p>
+<p>可是，在大多数情况下，VideoCapture的get方法不会返回摄像头帧率的准确值，通常会返回0。 <a target="_blank" rel="noopener" href="http://docs.opencv.org/modules/highgui/doc/reading_and_writing_images_and_video.html">点击跳转</a>上的官方文档警告如下：</p>
+<p>当查询VideoCapture实例使用的后端不支持的属性时，返回值为0。 注意： 读/写属性涉及许多层。沿着这条链可能会发生一些意想不到的结 果[sic]。 VideoCapture-&gt;API Backend-&gt;Operating System-&gt;DeviceDriver- &gt;Device Hardware 返回值可能与设备实际使用的值不同，也可能使用设备相关规则 （例如，步长或者百分比）对其进行编码。有效的行为取决于[sic]设备驱动程序和API后端。</p>
+<p>要为摄像头创建合适的VideoWriter类，我们必须对帧率做一个假设（就像前面代码中所做的那样），或者使用计时器测量帧率。后一种方法更好，我们将在本章后面对其进行介绍。</p>
+<p>当然，摄像头数量及其顺序取决于系统。可是，OpenCV不提供任何查询摄像头数量或者摄像头属性的方法。如果用无效的索引构造VideoCapture类，VideoCapture类将不会产生任何帧，它的read方法将返回(False,None)。要避免试图从未正确打开的VideoCapture对象检索帧，你可能想先调用VideoCapture.isOpened方法，返回一个布尔值。</p>
+<p>当我们需要同步一组摄像头或者多摄像头相机（如立体摄像机）时，read方法是不合适的。我们可以改用grab和retrieve方法。对于一组（两台）摄像机，可以使用类似于下面的代码：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">success0 <span class="token operator">=</span> cameraCapture0<span class="token punctuation">.</span>grab<span class="token punctuation">(</span><span class="token punctuation">)</span>
+success1 <span class="token operator">=</span> cameraCapture1<span class="token punctuation">.</span>grab<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> success0 <span class="token keyword">and</span> success1<span class="token punctuation">:</span>
+    frame0 <span class="token operator">=</span> cameraCapture0<span class="token punctuation">.</span>retrieve<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    frame1 <span class="token operator">=</span> cameraCapture1<span class="token punctuation">.</span>retrieve<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	首先，<code>cameraCapture0.grab()</code>和<code>cameraCapture1.grab()</code>用于从两个摄像机中抓取帧。这些函数返回一个布尔值，表示帧是否成功抓取。如果返回<code>True</code>，则表示成功抓取帧；如果返回<code>False</code>，则表示抓取失败或到达视频的末尾。</p>
+<p>​	<code>cameraCapture.retrieve()</code>用于检索已经抓取的帧。这个函数返回一个元组，包含两个元素。第一个元素<code>frame0</code>是从<code>cameraCapture0</code>抓取的帧，第二个元素<code>frame1</code>是从<code>cameraCapture1</code>抓取的帧。</p>
+<h3 id="在窗口中显示图像"><a href="#在窗口中显示图像" class="headerlink" title="在窗口中显示图像"></a>在窗口中显示图像</h3><p>​	OpenCV中一个最基本的操作是在窗口中显示图像。这可以通过 imshow函数实现。如果你有任何其他GUI框架背景，那么可能认为调用 imshow来显示图像就足够了。可是，在OpenCV中，只有当调用另一个 函数waitKey时，才会绘制（或者重新绘制）窗口。后一个函数抽取窗 口事件队列（允许处理各种事件，比如绘图），并且它返回用户在指 定的超时时间内输入的任何键的键码。在某种程度上，这个基本设计简化了开发使用视频或网络摄像头输入的演示程序的任务，至少开发人员可以手动控制新帧的获取和显示。</p>
+<p>​	下面是一个非常简单的示例脚本，用于从文件中读取图像，并对 其进行显示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span><span class="token string">'xx.png'</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'xx'</span><span class="token punctuation">,</span> img<span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>destroyAllWindows<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	imshow函数有两个参数：显示图像的窗口名称以及图像自己的名称。将在下一节中对waitKey进行更详细的介绍。</p>
+<p>​	恰如其名，destroyAllWindows函数会注销由OpenCV创建的所有窗 口。</p>
+<h3 id="在窗口中显示摄像头帧"><a href="#在窗口中显示摄像头帧" class="headerlink" title="在窗口中显示摄像头帧"></a>在窗口中显示摄像头帧</h3><p>​	OpenCV允许使用namedWindow、imshow和destroyWindow函数来创建、重新绘制和注销指定的窗口。此外，任何窗口都可以通过waitKey 函数捕获键盘输入，通过setMouseCallback函数捕获鼠标输入。我们来看一个例子，展示从实时摄像头获取的帧：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+
+clicked <span class="token operator">=</span> <span class="token boolean">False</span>
+<span class="token keyword">def</span> <span class="token function">onMouse</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> flags<span class="token punctuation">,</span> param<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">global</span> clicked
+    <span class="token keyword">if</span> event <span class="token operator">==</span> cv2<span class="token punctuation">.</span>EVENT_LBUTTONUP<span class="token punctuation">:</span>
+        clicked <span class="token operator">=</span> <span class="token boolean">True</span>
+
+cameraCapture <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>nameWindow<span class="token punctuation">(</span><span class="token string">'MyWindow'</span><span class="token punctuation">)</span>
+cv2<span class="token punctuation">.</span>setMouseCallback<span class="token punctuation">(</span><span class="token string">'MyWindow'</span><span class="token punctuation">,</span> onMouse<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Showing camera feed. Click window or press any key to stop'</span><span class="token punctuation">)</span>
+success<span class="token punctuation">,</span> frame <span class="token operator">=</span> cameraCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">while</span> success <span class="token keyword">and</span> cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">and</span> <span class="token keyword">not</span> clicked<span class="token punctuation">:</span>
+    cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'MyWindow'</span><span class="token punctuation">,</span> frame<span class="token punctuation">)</span>
+    success<span class="token punctuation">,</span> frame <span class="token operator">=</span> cameraCapture<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+cv2<span class="token punctuation">.</span>destroyWindow<span class="token punctuation">(</span><span class="token string">'MyWindow'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​	waitKey的参数是等待键盘输入的毫秒数，默认情况下为0，这是 一个特殊的值，表示无穷大。返回值可以是-1（表示未按下任何 键），也可以是ASCII键码（如27表示Esc）。有关ASCII键码的列表， 请参阅<a target="_blank" rel="noopener" href="http://www.asciitable.com/">点击跳转</a>。另外，请注意Python提供了一 个标准函数ord，可以将字符转换成ASCII键码。例如，ord(‘a’)返回 97。</p>
+<p>​	同样，请注意，OpenCV的窗口函数和waitKey是相互依赖的。 OpenCV窗口只在调用waitKey时更新。相反，waitKey只在OpenCV窗口 有焦点时才捕捉输入。</p>
+<p>​	传递给setMouseCallback的鼠标回调应有5个参数，如代码示例所 示。把回调的param参数设置为setMouseCallback的第3个可选参数， 默认情况下为0。回调的事件参数是以下操作之一：</p>
+<ul>
+<li>cv2.EVENT_MOUSEMOVE：这个事件指的是鼠标移动。</li>
+<li>cv2.EVENT_LBUTTONDOWN：这个事件指的是按下左键时， 左键向下。</li>
+<li>cv2.EVENT_RBUTTONDOWN：这个事件指的是按下右键时， 右键向下。</li>
+<li>cv2.EVENT_MBUTTONDOWN：这个事件指的是按下中间键时，中间键向下。</li>
+<li>·cv2.EVENT_LBUTTONUP：这个事件指的是释放左键时，左键回到原位。</li>
+<li>cv2.EVENT_RBUTTONUP：这个事件指的是释放右键时，右键回到原位。</li>
+<li>cv2.EVENT_MBUTTONUP：这个事件指的是释放中间键时，中间键回到原位。</li>
+<li>cv2.EVENT_LBUTTONDBLCLK：这个事件指的是双击左键。</li>
+<li>cv2.EVENT_RBUTTONDBLCLK：这个事件指的是双击右键。</li>
+<li>cv2.EVENT_MBUTTONDBLCLK：这个事件指的是双击中间键。</li>
+</ul>
+<p>鼠标回调的flag参数可能是以下事件的一些按位组合：</p>
+<ul>
+<li>cv2.EVENT_FLAG_LBUTTON：这个事件指的是按下左键。</li>
+<li>cv2.EVENT_FLAG_RBUTTON：这个事件指的是按下右键。</li>
+<li>cv2.EVENT_FLAG_MBUTTON：这个事件指的是按下中间键。</li>
+<li>cv2.EVENT_FLAG_CTRLKEY：这个事件指的是按下Ctrl键。</li>
+<li>cv2.EVENT_FLAG_SHIFTKEY：这个事件指的是按下Shift键。</li>
+<li>cv2.EVENT_FLAG_ALTKEY：这个事件指的是按下Alt键。</li>
+</ul>
+<p>​	可是，OpenCV不提供任何手动处理窗口事件的方法。例如，单窗口关闭按钮不能停止应用程序。因为OpenCV的事件处理和GUI功能有 限，许多开发人员更喜欢将其与其他应用程序框架集成。在下一节中，我们将设计一个抽象层来帮助OpenCV与应用程序框架集成。</p>
+<h2 id="项目Cameo（人脸跟踪和图像处理）面向对象的设计"><a href="#项目Cameo（人脸跟踪和图像处理）面向对象的设计" class="headerlink" title="项目Cameo（人脸跟踪和图像处理）面向对象的设计"></a>项目Cameo（人脸跟踪和图像处理）面向对象的设计</h2><p>​	可以用纯过程式风格编写Python应用程序。通常，这是通过小型应用程序（例如前面讨论过的基本I/O脚本）实现的。但是，从现在开始，我们将经常使用面向对象的风格，因为面向对象促进了模块化和可扩展性。</p>
+<p>​	从对OpenCV的I/O功能的概述中，我们知道不管源图像或者目标图像是什么，所有图像都是相似的。不管获取的图像流是什么，或者将其作为输出发送到哪里，我们都可以对这个流的每一帧应用相同的特定于应用程序的逻辑。在使用多个I/O流的应用程序（例如Cameo）中，I/O代码和应用程序代码的分离变得特别方便。</p>
+<p>​	我们将创建的类命名为CaptureManager和WindowManager，作为 I/O流的高级接口。应用程序代码可以使用CaptureManager读取新帧，也可以将每一帧分派给一个或多个输出，包括静态图像文件、视频文件和窗口（通过WindowManager类）。WindowManager类允许应用程序 代码以面向对象风格处理窗口和事件。 CaptureManager和WindowManager都是可扩展的。我们可以实现不依赖OpenCV的I/O。</p>
+<h3 id="基于managers-CaptureManager提取视频流"><a href="#基于managers-CaptureManager提取视频流" class="headerlink" title="基于managers.CaptureManager提取视频流"></a>基于managers.CaptureManager提取视频流</h3><p>​	正如我们所看到的，OpenCV可以获取、显示和记录来自视频文件或来自摄像头的图像流，但是在每种情况下都会有一些特殊考虑的事项。CaptureManager类提取了一些差异并提供了一个更高级的接口， 将图像从获取流分发到一个或多个输出——静态图像文件、视频文件，或者窗口。</p>
+<p>​	CaptureManager对象是由VideoCapture对象初始化的，并拥有 enterFrame和exitFrame方法，通常应该在应用程序主循环的每次迭代 中调用这两个方法。在调用enterFrame和exitFrame之间，应用程序可 以（任意次）设置一个channel属性并获得一个frame属性。channel属 性初始为0，只有多摄像头相机使用其他值。frame属性是在调用 enterFrame时，对应于当前通道状态的一幅图像。</p>
+<p>​	CaptureManager类还拥有可以在任何时候调用的writeImage、 startWriting Video和stopWritingVideo方法。实际的文件写入被推迟到exitFrame。同样，在执行exitFrame方法期间，可以在窗口中显示frame，这取决于应用程序代码将WindowManager类作为CaptureManager构造函数的参数提供，还是通过设置 previewWindowManager属性提供。</p>
+<p>​	如果应用程序代码操作frame，那么将在记录文件和窗口中体现这些操作。CaptureManager类有一个构造函数参数和一个名为 shouldMirrorPreview的属性，如果想要在窗口中镜像（水平翻转） frame，但不记录在文件中，那么此属性应该为True。通常，在面对摄像头时，用户更喜欢镜像实时摄像头回传信号。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">寒风渐微凉</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://lwqblog.top/2023/11/20/opencv-4-learning-notes/">https://lwqblog.top/2023/11/20/opencv-4-learning-notes/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">寒风渐微凉</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/OpenCV/">
+                                    <span class="chip bg-color">OpenCV</span>
+                                </a>
+                            
+                                <a href="/tags/CV/">
+                                    <span class="chip bg-color">CV</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js"
+                repo="hac-kers/hac-kers.github.io"
+                issue-term="pathname"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2023/11/22/unity-xue-xi-shi-xian-fei-xing-he-she-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Unity学习-实现飞行和射击">
+                        
+                        <span class="card-title">Unity学习-实现飞行和射击</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-11-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Unity/" class="post-category">
+                                    Unity
+                                </a>
+                            
+                            <a href="/categories/Unity/Project-practice/" class="post-category">
+                                    Project_practice
+                                </a>
+                            
+                            <a href="/categories/Unity/Project-practice/Game-dev/" class="post-category">
+                                    Game_dev
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Unity/">
+                        <span class="chip bg-color">Unity</span>
+                    </a>
+                    
+                    <a href="/tags/Game-dev/">
+                        <span class="chip bg-color">Game_dev</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/11/15/datawhale-zhi-neng-qi-che-duo-mo-tai-1-du-dong-baseline/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Datawhale智能汽车多模态(1)--读懂Baseline">
+                        
+                        <span class="card-title">Datawhale智能汽车多模态(1)--读懂Baseline</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/DL/" class="post-category">
+                                    DL
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/clip/">
+                        <span class="chip bg-color">clip</span>
+                    </a>
+                    
+                    <a href="/tags/DL/">
+                        <span class="chip bg-color">DL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2024</span>
+            
+            <a href="/about" target="_blank">寒风渐微凉</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hac-kers" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiqi@whu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/wlhack2" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/wlhack2" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=413692179" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 413692179" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "https://lwqblog.top"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

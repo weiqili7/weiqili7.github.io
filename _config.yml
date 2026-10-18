@@ -1,0 +1,83 @@
+title: LWQ
+subtitle: Learning in public, thinking in private.
+description: 我要上 UT
+keywords:
+  - 计算机科学
+  - 学习笔记
+  - 技术博客
+author: LWQ
+language: zh-CN
+timezone: Europe/Berlin
+
+url: https://lwqblog.top
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults: {}
+pretty_urls:
+  trailing_index: true
+  trailing_html: false
+
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - "private/**"
+  - ".nojekyll"
+
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ""
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: true
+  tab_replace: ""
+  wrap: true
+  hljs: false
+
+index_generator:
+  path: ""
+  per_page: 12
+  order_by: -date
+
+default_category: 随笔
+category_map:
+  公开笔记: public-notes
+tag_map: {}
+
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: date
+per_page: 12
+pagination_dir: page
+
+theme: matery
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+search:
+  path: search.xml
+  field: post
+  content: true
+
+sitemap:
+  path: sitemap.xml
+
+# 刻意不配置 deploy：本项目只在本地构建，不会覆盖现有 GitHub Pages。
+deploy: {}

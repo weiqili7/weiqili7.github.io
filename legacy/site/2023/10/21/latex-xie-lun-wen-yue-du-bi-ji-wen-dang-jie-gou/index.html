@@ -1,0 +1,1474 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="LaTex写论文阅读笔记_文档结构, LWQ">
+    <meta name="description" content="文档结构基本要素\documentclass[a4paper,12pt]{article}
+
+\begin{document}
+
+A sentence of text.
+
+\end{document}
+
+\documentclass 命令必">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>LaTex写论文阅读笔记_文档结构 | LWQ</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LWQ" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">LWQ</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">LWQ</div>
+        <div class="logo-desc">
+            
+            我要上UT
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hac-kers" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hac-kers" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">LaTex写论文阅读笔记_文档结构</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/LaTex/">
+                                <span class="chip bg-color">LaTex</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/LaTex/" class="post-category">
+                                LaTex
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-10-21
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h2><h3 id="基本要素"><a href="#基本要素" class="headerlink" title="基本要素"></a>基本要素</h3><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>a4paper,12pt<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+A sentence of text.
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>\documentclass</code> 命令必须出现在每个 LaTeX 文档的开头。花括号内的文本指定了文档的类型。<strong>article</strong> 文档类型适合较短的文章，比如期刊文章和短篇报告。其他文档类型包括 <strong>report</strong>（适用于更长的多章节的文档，比如博士生论文），<strong>proc</strong>（会议论文集），<strong>book</strong> 和 <strong>beamer</strong>。方括号内的文本指定了一些选项——示例中它设置纸张大小为 A4，主要文字大小为 12pt。</p>
+<p><code>\begin{document}</code> 和 <code>\end{document}</code> 命令将你的文本内容包裹起来。任何在 <code>\begin{documnet}</code> 之前的文本都被视为前导命令，会影响整个文档。任何在 <code>\end{document}</code> 之后的文本都会被忽视。</p>
+<p>空行不是必要的，但它可以让长的文档更易读。</p>
+<h3 id="添加文档标题"><a href="#添加文档标题" class="headerlink" title="添加文档标题"></a>添加文档标题</h3><p><code>\maketitle</code> 命令可以给文档创建标题。你需要指定文档的标题。如果没有指定日期，就会使用现在的时间，作者是可选的。</p>
+<p>在 <code>\begin{document}</code> 和 命令后紧跟着输入以下文本：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\title</span><span class="token punctuation">{</span>My First Document<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>My Name<span class="token punctuation">}</span>
+<span class="token function selector">\date</span><span class="token punctuation">{</span><span class="token function selector">\today</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你的文档现在长成了这样：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>a4paper,12pt<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">{</span>My First Document<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>My Name<span class="token punctuation">}</span>
+<span class="token function selector">\date</span><span class="token punctuation">{</span><span class="token function selector">\today</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span>
+
+A sentence of text.
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要点笔记：</p>
+<ul>
+<li><code>\today</code> 是插入当前时间的命令。你也可以输入一个不同的时间，比如 <code>\date{November 2013}</code>。</li>
+<li><strong>article</strong> 文档的正文会紧跟着标题之后在同一页上排版。<strong>report</strong> 会将标题置为单独的一页。</li>
+</ul>
+<h3 id="章节"><a href="#章节" class="headerlink" title="章节"></a>章节</h3><p>如果需要的话，你可能想将你的文档分为章（Chatpers）、节（Sections）和小节（Subsections）。下列分节命令适用于 <strong>article</strong> 类型的文档：</p>
+<ul>
+<li><code>\section{...}</code></li>
+<li><code>\subsection{...}</code></li>
+<li><code>\subsubsection{...}</code></li>
+<li><code>\paragraph{...}</code></li>
+<li><code>\subparagraph{...}</code></li>
+</ul>
+<p>花括号内的文本表示章节的标题。对于 <strong>report</strong> 和 <strong>book</strong> 类型的文档我们还支持 <code>\chapter{...}</code> 的命令。</p>
+<p>将 “A sentence of text.” 替换为以下文本：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Introduction</span><span class="token punctuation">}</span>
+This is the introduction.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Methods</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 1</span><span class="token punctuation">}</span>
+The first part of the methods.
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 2</span><span class="token punctuation">}</span>
+The second part of the methods.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Results</span><span class="token punctuation">}</span>
+Here are my results.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>你的文档会变成</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>a4paper,12pt<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">{</span>My First Document<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>My Name<span class="token punctuation">}</span>
+<span class="token function selector">\date</span><span class="token punctuation">{</span><span class="token function selector">\today</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span>
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Introduction</span><span class="token punctuation">}</span>
+This is the introduction.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Methods</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 1</span><span class="token punctuation">}</span>
+The first part of the methods.
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 2</span><span class="token punctuation">}</span>
+The second part of the methods.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Results</span><span class="token punctuation">}</span>
+Here are my results.
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>生成PDF 文档。应该是长这样的</p>
+<p><img src="/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/image-20231021160318989.png"></p>
+<h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><p>你可以对任意章节命令创建标签，这样他们可以在文档的其他部分被引用。使用 <code>\label{labelname}</code> 对章节创建标签。然后输入 <code>\ref{labelname}</code> 或者 <code>\pageref{labelname}</code> 来引用对应的章节。</p>
+<p>在 <code>\subsection{Stage 1}</code> 下面另起一行，输入 <code>\label{sec1}</code>。<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="\rightarrow"> 在 <strong>Results</strong> 章节输入 <code>Referring to section \ref{sec1} on page \pageref{sec1}</code>。</p>
+<p>你的文档会变成这样：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>a4paper,12pt<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">{</span>My First Document<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>My Name<span class="token punctuation">}</span>
+<span class="token function selector">\date</span><span class="token punctuation">{</span><span class="token function selector">\today</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span>
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Introduction</span><span class="token punctuation">}</span>
+This is the introduction.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Methods</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 1</span><span class="token punctuation">}</span>
+<span class="token function selector">\label</span><span class="token punctuation">{</span><span class="token keyword">sec1</span><span class="token punctuation">}</span>
+The first part of the methods.
+
+<span class="token function selector">\subsection</span><span class="token punctuation">{</span><span class="token headline class-name">Stage 2</span><span class="token punctuation">}</span>
+The second part of the methods.
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">Results</span><span class="token punctuation">}</span>
+Here are my results. Referring to section <span class="token function selector">\ref</span><span class="token punctuation">{</span><span class="token keyword">sec1</span><span class="token punctuation">}</span> on page <span class="token function selector">\pageref</span><span class="token punctuation">{</span>sec1<span class="token punctuation">}</span>
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编译并检查 PDF 文档（可能需要连续编译两次）</p>
+<p><img src="/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/image-20231021161758048.png"></p>
+<p>在LaTeX中，创建标签（或者说标记）是为了能够在文档中引用特定位置或对象的标识符。标签可以用于交叉引用、引用图表、公式、章节等内容，以及创建内部链接和目录。</p>
+<p>以下是一些使用标签的常见场景和用途：</p>
+<ol>
+<li><p>交叉引用：标签允许你在文档的其他位置引用特定内容。例如，在文中引用某个章节、图表或公式，可以使用<code>\label{}</code>命令为其创建一个标签，然后使用<code>\ref{}</code>命令在其他位置引用该标签所关联的内容。</p>
+</li>
+<li><p>引用图表和公式：使用标签可以方便地引用文档中的图表和公式。通过为图表和公式添加标签，你可以使用<code>\ref{}</code>命令在文中其他位置引用它们，而不需要手动编写相应的编号。</p>
+</li>
+<li><p>创建内部链接：你可以使用标签创建内部链接，以便读者可以点击链接跳转到文档的其他位置。这可以增加文档的可导航性和易读性。标签可以与<code>\hyperref[]</code>命令结合使用，创建包含链接的文字或图标，在使用<code>\hyperref[]</code>命令时，它会自动创建一个超链接，指向标签所在位置。你可以在文本中的任何位置使用<code>\hyperref[]</code>命令，以创建链接到其他部分的超链接。</p>
+<p>请注意，使用<code>\hyperref[]</code>命令之前，通常需要对文档进行多次编译，以确保超链接被正确解析和显示。</p>
+</li>
+</ol>
+<p>总之，标签是在LaTeX文档中定义和引用特定位置或对象的一种方式。它们提供了方便的跳转和引用机制，使得文档结构更加清晰、易于导航和引用。</p>
+<h3 id="生成目录（TOC）"><a href="#生成目录（TOC）" class="headerlink" title="生成目录（TOC）"></a>生成目录（TOC）</h3><p>如果你使用分节命令，那么可以容易地生成一个目录。使用 <code>\tableofcontents</code> 在文档中创建目录。通常我们会在标题的后面建立目录。</p>
+<p>你可能也想也想更改页码为罗马数字（i,ii,iii）。这会确保文档的正文从第 1 页开始。页码可以使用 <code>\pagenumbering{...}</code> 在阿拉伯数字和罗马数字见切换。</p>
+<p>在 <code>\maketitle</code> 之后输入以下内容：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>roman<span class="token punctuation">}</span>
+<span class="token function selector">\tableofcontents</span>
+<span class="token function selector">\newpage</span>
+<span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>arabic<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>\newpage</code> 命令会另起一个页面，这样我们就可以看到 <code>\pagenumbering</code> 命令带来的影响了。你的文档的前 14 行长这样：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">[</span>a4paper,12pt<span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">{</span>My First Document<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>My Name<span class="token punctuation">}</span>
+<span class="token function selector">\date</span><span class="token punctuation">{</span><span class="token function selector">\today</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span>
+
+<span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>roman<span class="token punctuation">}</span>
+<span class="token function selector">\tableofcontents</span>
+<span class="token function selector">\newpage</span>
+<span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>arabic<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/image-20231021182141620.png"></p>
+<p>第二页：</p>
+<p><img src="/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/image-20231021182212262.png"></p>
+<h3 id="itemize环境列举无序项目列表"><a href="#itemize环境列举无序项目列表" class="headerlink" title="itemize环境列举无序项目列表"></a>itemize环境列举无序项目列表</h3><p>在 LaTeX 中，可以使用 <code>itemize</code> 环境来创建项目列表。<code>itemize</code> 环境会自动为每个项目生成一个项目符号，并将它们垂直对齐。</p>
+<p>下面是一个示例，展示了如何使用 <code>itemize</code> 环境创建一个简单的项目列表：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">itemize</span><span class="token punctuation">}</span>
+  <span class="token function selector">\item</span> 第一项
+  <span class="token function selector">\item</span> 第二项
+  <span class="token function selector">\item</span> 第三项
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">itemize</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个示例中，我们使用了 <code>itemize</code> 环境，并在其中列举了三个项目。每个项目都使用 <code>\item</code> 命令开始，后面是项目的内容。</p>
+<p>当你编译这个示例时，LaTeX 会生成一个带有项目符号的垂直列表，如下所示：</p>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+<li>第三项</li>
+</ul>
+<p>你可以根据需要添加或删除项目，<code>itemize</code> 环境会自动调整项目符号和对齐方式。</p>
+<p>除了默认的项目符号（通常是一个实心圆点），你还可以通过自定义 <code>itemize</code> 环境的样式进行更改。例如，你可以使用 <code>\renewcommand</code> 命令来重新定义项目符号的样式。以下是一个示例，演示如何将项目符号更改为破折号：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\renewcommand</span><span class="token punctuation">{</span><span class="token function selector">\labelitemi</span><span class="token punctuation">}</span><span class="token punctuation">{</span>--<span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">itemize</span><span class="token punctuation">}</span>
+  <span class="token function selector">\item</span> 第一项
+  <span class="token function selector">\item</span> 第二项
+  <span class="token function selector">\item</span> 第三项
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">itemize</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个示例中，我们使用 <code>\renewcommand</code> 重新定义了 <code>\labelitemi</code> 命令，将项目符号更改为破折号。可以根据需要调整样式。</p>
+<h3 id="enumerate环境列举有序项目列表"><a href="#enumerate环境列举有序项目列表" class="headerlink" title="enumerate环境列举有序项目列表"></a>enumerate环境列举有序项目列表</h3><p>前者<code>itemize</code>：用于创建无序项目列表，每个项目通常以实心圆点作为项目符号。enumerate用于创建有序项目列表，每个项目通常以数字作为项目符号。</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">enumerate</span><span class="token punctuation">}</span>
+  <span class="token function selector">\item</span> 第一项
+  <span class="token function selector">\item</span> 第二项
+  <span class="token function selector">\item</span> 第三项
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">enumerate</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="description-环境描述性列表"><a href="#description-环境描述性列表" class="headerlink" title="description 环境描述性列表"></a>description 环境描述性列表</h3><pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">description</span><span class="token punctuation">}</span>
+  <span class="token function selector">\item</span><span class="token punctuation">[</span>项目一<span class="token punctuation">]</span> 这是项目一的描述。
+  <span class="token function selector">\item</span><span class="token punctuation">[</span>项目二<span class="token punctuation">]</span> 这是项目二的描述。
+  <span class="token function selector">\item</span><span class="token punctuation">[</span>项目三<span class="token punctuation">]</span> 这是项目三的描述。
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">description</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 <code>description</code> 环境中，项目符号通常是项目的标题或标签，而不是简单的符号或数字。每个项目都可以用方括号包围的文本来定义项目符号。</p>
+<h3 id="页码设置相关的命令"><a href="#页码设置相关的命令" class="headerlink" title="页码设置相关的命令"></a>页码设置相关的命令</h3><p>在LaTex中，与页码和页面设置相关的命令有\pagestyle{type}，\thispagestyle{type}，setcounter{page}{number}，\pagenumbering{style}。<br>\pagestyle{type}和\thispagestyle{type}命令用于设置页面样式（页眉和页脚）。\pagestyle{type}和\thispagestyle{type}的主要区别在于\pagestyle{type}对后续所有页面都有效，而\thispagestyle{type}仅仅对当前页面有效。在LaTeX中，默认提供了以下四种页面样式：</p>
+<ul>
+<li>empty - 没有页眉和页脚</li>
+<li>plain - 没有页眉，页脚包含一个居中的页码</li>
+<li>headings - 没有页脚，页眉包含章/节或者字节的名字和页码，可以使用 <code>\pagestyle{headings}</code> 命令来启用这个页面风格。</li>
+<li>myheadings - 没有页脚，页眉包含有页码可以使用 <code>\markboth{left}{right}</code> 命令来设置自定义的页眉内容，并使用 <code>\pagestyle{myheadings}</code> 命令来启用这个页面风格。</li>
+</ul>
+<p>你想在每一页的底部中央显示页码，可以在文档的导言区添加以下命令：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\pagestyle</span><span class="token punctuation">{</span>plain<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>默认情况下，页码从第一页开始（通常是包含标题页的）并且以阿拉伯数字形式显示（例如：1，2，3 …）。页码的编号也可以通过\setcounter{page}{number}命令手动设置，需要注意的是，手动设置可能会导致重复的页码出现。<br>\pagenumbering{style}命令则用于改变页码的显示风格。LaTeX中页码风格包含以下五类：</p>
+<ul>
+<li>arabic - 阿拉伯数字</li>
+<li>roman - 小写的罗马数字</li>
+<li>Roman - 大写的罗马数字</li>
+<li>alph - 小写的字符形式</li>
+<li>Alph -大写的字符形式</li>
+</ul>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex"><span class="token function selector">\documentclass</span><span class="token punctuation">{</span><span class="token keyword">article</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\usepackage</span><span class="token punctuation">{</span><span class="token keyword">fontspec, xunicode, xlextra</span><span class="token punctuation">}</span>
+<span class="token function selector">\usepackage</span><span class="token punctuation">{</span><span class="token keyword">xeCJK</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\title</span><span class="token punctuation">{</span><span class="token function selector">\LaTeX</span> 页码设置<span class="token punctuation">}</span>
+<span class="token function selector">\author</span><span class="token punctuation">{</span>Japinli<span class="token punctuation">}</span>
+
+<span class="token function selector">\begin</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span>
+<span class="token function selector">\maketitle</span>
+<span class="token function selector">\thispagestyle</span><span class="token punctuation">{</span>empty<span class="token punctuation">}</span> <span class="token comment">% 当前页不显示页码</span>
+<span class="token function selector">\newpage</span>
+
+<span class="token function selector">\pagestyle</span><span class="token punctuation">{</span>headings<span class="token punctuation">}</span>
+<span class="token function selector">\setcounter</span><span class="token punctuation">{</span>page<span class="token punctuation">}</span><span class="token punctuation">{</span>1<span class="token punctuation">}</span>
+<span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>Roman<span class="token punctuation">}</span>
+
+<span class="token function selector">\section*</span><span class="token punctuation">{</span><span class="token headline class-name">前言</span><span class="token punctuation">}</span>
+学习如何在<span class="token function selector">\LaTeX</span> 中设置页码。
+<span class="token function selector">\newpage</span>
+
+<span class="token function selector">\tableofcontents</span>
+<span class="token function selector">\newpage</span>
+
+<span class="token function selector">\setcounter</span><span class="token punctuation">{</span>page<span class="token punctuation">}</span><span class="token punctuation">{</span>1<span class="token punctuation">}</span>
+<span class="token function selector">\pagenumbering</span><span class="token punctuation">{</span>arabic<span class="token punctuation">}</span>
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">页码风格</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\LaTeX</span> 中包含五种页码风格，分别是<span class="token function selector">\emph</span><span class="token punctuation">{</span>arabic<span class="token punctuation">}</span>，<span class="token function selector">\emph</span><span class="token punctuation">{</span>roman<span class="token punctuation">}</span>，<span class="token function selector">\emph</span><span class="token punctuation">{</span>Roman<span class="token punctuation">}</span>，
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>alph<span class="token punctuation">}</span>和<span class="token function selector">\emph</span><span class="token punctuation">{</span>Alph<span class="token punctuation">}</span>。
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">页码风格说明</span><span class="token punctuation">}</span>
+
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>arabic<span class="token punctuation">}</span>代表阿拉伯数字类型。
+
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>roman<span class="token punctuation">}</span>代表小写的罗马数字类型。
+
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>Roman<span class="token punctuation">}</span>代表大写的罗马数字类型。
+
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>alph<span class="token punctuation">}</span>代表小写的字符类型。
+
+<span class="token function selector">\emph</span><span class="token punctuation">{</span>Alph<span class="token punctuation">}</span>代表大写的字符类型。
+
+<span class="token function selector">\section</span><span class="token punctuation">{</span><span class="token headline class-name">页码风格设置</span><span class="token punctuation">}</span>
+
+为了改变页码的风格，可以使用<span class="token function selector">\emph</span><span class="token punctuation">{</span><span class="token function selector">\textbackslash</span> pagenumbering<span class="token function selector">\{</span>sytle<span class="token function selector">\}</span><span class="token punctuation">}</span>
+命令设置。
+
+<span class="token function selector">\end</span><span class="token punctuation">{</span><span class="token keyword">document</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/japinli/article/details/51418977">本节参考</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/tools/latex/">LaTeX 入门</a></p>
+<p><a target="_blank" rel="noopener" href="https://mdnice.com/writing/285dc7d7cfd54d89b0378b4e08e8c006">vs code 配置latex环境保姆级配置教程（双系统）</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/110451310">MikTex + VS Code 配置教程</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.writelatex.com/signup">在线latex 并生成pdf网站：writelatex</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">寒风渐微凉</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://lwqblog.top/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/">https://lwqblog.top/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">寒风渐微凉</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/LaTex/">
+                                    <span class="chip bg-color">LaTex</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js"
+                repo="hac-kers/hac-kers.github.io"
+                issue-term="pathname"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2023/10/23/er-fen-suan-fa/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="二分(算法)">
+                        
+                        <span class="card-title">二分(算法)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
+                                    算法
+                                </a>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86/" class="post-category">
+                                    二分
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%8C%E5%88%86/">
+                        <span class="chip bg-color">二分</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/20/ruan-jian-an-quan-shi-yan-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="软件安全实验_1">
+                        
+                        <span class="card-title">软件安全实验_1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="post-category">
+                                    软件安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">软件安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2024</span>
+            
+            <a href="/about" target="_blank">寒风渐微凉</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hac-kers" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiqi@whu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/wlhack2" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/wlhack2" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=413692179" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 413692179" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "https://lwqblog.top"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

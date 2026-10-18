@@ -1,0 +1,1570 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="软件安全实验_1, LWQ">
+    <meta name="description" content="实验1 磁盘结构与文件系统实验目的
+加深对 FAT32 分区及文件系统格式的理解
+
+掌握借助 WinHex 等工具手工定位磁盘文件数据的技能
+
+通过开发一个磁盘文件数据提取工具，强化编程实践能力。
+
+
+实验内容内容一：手工定位和提取 FAT">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>软件安全实验_1 | LWQ</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LWQ" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">LWQ</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">LWQ</div>
+        <div class="logo-desc">
+            
+            我要上UT
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hac-kers" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hac-kers" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">软件安全实验_1</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">软件安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="post-category">
+                                软件安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-10-20
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="实验1-磁盘结构与文件系统"><a href="#实验1-磁盘结构与文件系统" class="headerlink" title="实验1 磁盘结构与文件系统"></a>实验1 磁盘结构与文件系统</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<li><p>加深对 FAT32 分区及文件系统格式的理解</p>
+</li>
+<li><p>掌握借助 WinHex 等工具手工定位磁盘文件数据的技能</p>
+</li>
+<li><p>通过开发一个磁盘文件数据提取工具，强化编程实践能力。</p>
+</li>
+</ul>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="内容一：手工定位和提取-FAT32-分区中的文件数据"><a href="#内容一：手工定位和提取-FAT32-分区中的文件数据" class="headerlink" title="内容一：手工定位和提取 FAT32 分区中的文件数据"></a>内容一：手工定位和提取 FAT32 分区中的文件数据</h3><p>在 FAT32 分区下创建一个不小于 10K 的文件，文件名称用本组组长姓名的拼</p>
+<p>音命名。根据课上介绍的 FAT32 分区及文件系统知识，必要时自行上网查阅</p>
+<p>相关资料，借助 WinHex 或其它十六进制工具，以手工方式从磁盘中逐一找</p>
+<p>到该文件的各个存储扇区，复制其中的有效内容，并拼接组合成一个与原文</p>
+<p>档内容相同的完整文档。</p>
+<p>要求：操作过程描述中，要展示带有组长姓名字样的截图。</p>
+<h3 id="内容二：编程实现“内容一”的全过程"><a href="#内容二：编程实现“内容一”的全过程" class="headerlink" title="内容二：编程实现“内容一”的全过程"></a>内容二：编程实现“内容一”的全过程</h3><p>输入：某个文件（A）的路径</p>
+<p>输出：</p>
+<p>（1）该文件的短文件名目录项信息</p>
+<p>（2）该文件的簇链</p>
+<p>（3）根据上述的文件簇链，从磁盘上提取数据并拼接而得的新文件（B）</p>
+<p>（4）文件 A 与文件 B 内容的比较结果（要求二者完全一致）</p>
+<h2 id="实验工具和编程语言"><a href="#实验工具和编程语言" class="headerlink" title="实验工具和编程语言"></a>实验工具和编程语言</h2><p>实验工具：Winhex、VSCode</p>
+<p>编程语言：Python 3.9.12</p>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="内容一："><a href="#内容一：" class="headerlink" title="内容一："></a>内容一：</h3><p>提前在新分区的 F 盘上创建 zqb.txt，并填入内容，文件大小 10K。</p>
+<p>打开 Winhex，并且打开 F 磁盘。如下图，可得 BPB 中的重要字段：</p>
+<p>·每扇区字节数：0x0200 </p>
+<p>·每簇扇区数：0x08 </p>
+<p>·保留扇区数：0x100E </p>
+<p>·FAT 的个数：2 </p>
+<p>·每个 FAT 占用的扇区数：0x000007F9 </p>
+<p>·BPB_RootClus（根目录首簇号）：0x02</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020110710251.png"></p>
+<p>故 FirstSectorofRoot=保留扇区数 + (FAT 个数 * 每个 FAT 所占扇区数)</p>
+<p>=0x100E+(2*0x07F9)=0x2000</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020110815637.png"></p>
+<p>定位到 0x2000*0x200=0x400000 根目录处，找到 ZQB.TXT 在 0x4000E0 处。</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020110856194.png"></p>
+<p>参考此表可得</p>
+<p>·起始簇号的高 16 位=0x0001 ·起始簇号的低 16 位=0x022A</p>
+<p>计算得起始簇号=0x0001022A</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020110934931.png"></p>
+<p>定位到 FAT1，即保留扇区数<em>每扇区字节数=0x100E</em>0x0200=0x201c00</p>
+<p>起始簇号=0x0001022A，簇大小 4B，故位于 4*0x0001022A+0x201c00=0x2424A8</p>
+<p>故起始簇的下一簇为 0x0001022B，下一簇=0x0001022C，再下一个为</p>
+<p>0x0FFFFFFF，即最后一簇。</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111013371.png"></p>
+<p>最后来定位文件，计算文件初始簇的偏移。根据下图的公式可得，</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111057729.png"></p>
+<p>文件某簇的偏移 = 根目录首簇偏移 + (文件某簇号 - 根目录首簇号)*每簇</p>
+<p>扇区数</p>
+<p>zqb.txt 文件初始簇的偏移</p>
+<p>=0x400000+(0x0001022A-0x2)<em>8</em>0x200=0x10628000</p>
+<p>可以发现，已经定位到 zqb.txt 文件。</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111130607.png"></p>
+<p>复制其中的有效内容拼接组合成一个与原文档内容相同的完整文档。</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111203286.png"></p>
+<p>最后可成功打开</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111233613.png"></p>
+<h3 id="内容二："><a href="#内容二：" class="headerlink" title="内容二："></a>内容二：</h3><h4 id="程序主要设计思路"><a href="#程序主要设计思路" class="headerlink" title="程序主要设计思路"></a>程序主要设计思路</h4><h5 id="路径分割，打开磁盘"><a href="#路径分割，打开磁盘" class="headerlink" title="路径分割，打开磁盘"></a>路径分割，打开磁盘</h5><p>将输入的绝对路径进行分割，分割成一个一个的子文件(不区分文件和目录，</p>
+<p>因为在磁盘中，目录其实就是特殊的文件)。</p>
+<p>例如，对于输入的路径 F:/lab/123/test.txt，会将其分割成[“F:”, “lab”, “123”,“test” ]</p>
+<h5 id="读取磁盘"><a href="#读取磁盘" class="headerlink" title="读取磁盘"></a>读取磁盘</h5><p> BPB 中的数据，主要数据如下</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111459118.png"></p>
+<h5 id="读取目录项"><a href="#读取目录项" class="headerlink" title="读取目录项"></a>读取目录项</h5><p>读取目录项时，要注意长文件名的单独处理，对于文件名大于 8 字节或者</p>
+<p>文件后缀大于 3 字节的为长文件名。</p>
+<p>首先由公式：FAT32 分区根目录项=保留扇区大小+文件分配表大小*文件分配</p>
+<p>表个数 定位到根目录项。</p>
+<p>然后通过根目录可以读取到一级目录的目录项，然后就可以通过一个循环去</p>
+<p>读取二级、三级等目录项。</p>
+<p>最后找到最后一级目录项，然后定位文件的首簇号，再定位其簇链(实验一</p>
+<p>已经说明)，最后就可以通过簇链定位文件内容。</p>
+<h5 id="读取文件内容并写入新文件"><a href="#读取文件内容并写入新文件" class="headerlink" title="读取文件内容并写入新文件"></a>读取文件内容并写入新文件</h5><p>在第 3 步中，通过起始簇号可以在 FAT 中将文件的整个簇链找出来，然后就可以直接定位文件内容了。</p>
+<p>读取文件内容时，要注意磁盘给文件分配存储空间时，是以簇为单位进行分配的。这也就是说文件的实际大小不一定就为操作系统给其分配的大小，所以这里在最后一簇时，要进行判断。 </p>
+<h5 id="程序使用说明"><a href="#程序使用说明" class="headerlink" title="程序使用说明"></a>程序使用说明</h5><p>考虑到文件路径可能过长，所以只需要将文件路径替换成自己的路径即可，</p>
+<p>注意文件路径应当是绝对路径，并且使用 “\” 进行分割，比如：F:/lab/123/test.txt</p>
+<p>编程语句使用 python，所以无需编译，直接运行即可，如果出现语法错误，</p>
+<p>可以是由于 python 版本导致，笔者使用的是 Python 3.9.12</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020111914045.png"></p>
+<h5 id="程序测试结果"><a href="#程序测试结果" class="headerlink" title="程序测试结果"></a>程序测试结果</h5><p>注意，如果文件目录过深，分析过程可能比较长，请耐心等待</p>
+<p>测试 1：</p>
+<p>输入文件内容及其路径：路径包含 6 级目录，并且包含长文件名及短文件名</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112526944.png"></p>
+<p>输出结果其新文件内容：</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112626290.png"></p>
+<p>新旧文件对比：</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112659991.png"></p>
+<p>测试 2：</p>
+<p>输入文件内容及其路径：文件在根目录下，为短文件</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112757626.png"></p>
+<p>输出结果：</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112825361.png"></p>
+<p>新旧文件对比：</p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112858762.png"></p>
+<p><img src="/2023/10/20/ruan-jian-an-quan-shi-yan-1/image-20231020112920773.png"></p>
+<h4 id="程序代码"><a href="#程序代码" class="headerlink" title="程序代码"></a>程序代码</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+
+<span class="token comment"># 打印二进制数据, 方便 debug</span>
+<span class="token keyword">def</span> <span class="token function">binary_dump</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> length<span class="token operator">=</span><span class="token number">1000000000000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">8</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">" "</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\n      "</span><span class="token operator">+</span><span class="token string">"-"</span><span class="token operator">*</span><span class="token number">98</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>rjust<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">": "</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token operator">&gt;=</span> length<span class="token punctuation">:</span> <span class="token keyword">break</span>
+        <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">8</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> i <span class="token operator">%</span> <span class="token number">32</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">and</span> i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>rjust<span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">": "</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">" "</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 字符串转换为 16 进制数据</span>
+<span class="token keyword">def</span> <span class="token function">str_to_hex</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token builtin">hex</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> s<span class="token punctuation">]</span>
+
+<span class="token comment"># 将 16 进制按照指定大小端进行转换</span>
+<span class="token keyword">def</span> <span class="token function">hex_to_num</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> endian<span class="token operator">=</span><span class="token string">"little"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    hex_num<span class="token punctuation">,</span> num <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> s<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0</span>
+    <span class="token keyword">if</span> endian <span class="token operator">==</span> <span class="token string">"big"</span><span class="token punctuation">:</span>
+        hex_num <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">reversed</span><span class="token punctuation">(</span>hex_num<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token comment">#    print(hex_num)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>hex_num<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        num <span class="token operator">|</span><span class="token operator">=</span> hex_num<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span>i<span class="token operator">*</span><span class="token number">8</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> num
+
+<span class="token comment"># 读取基本数据</span>
+<span class="token keyword">def</span> <span class="token function">read_BPB</span><span class="token punctuation">(</span>disk<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    DBR <span class="token operator">=</span> disk<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+    disk<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token comment">#    print(DBR)</span>
+<span class="token comment">#    binary_dump(DBR)</span>
+    DBR_hex <span class="token operator">=</span> str_to_hex<span class="token punctuation">(</span>DBR<span class="token punctuation">)</span>
+    byte_per_sector <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0xb</span><span class="token punctuation">:</span><span class="token number">0xb</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    sector_per_clust <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0xd</span><span class="token punctuation">:</span><span class="token number">0xd</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    saved_sector <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0xe</span><span class="token punctuation">:</span><span class="token number">0xe</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    fat_nums <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0x10</span><span class="token punctuation">:</span><span class="token number">0x10</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    sector_per_fat <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0x24</span><span class="token punctuation">:</span><span class="token number">0x24</span><span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    root_clust_idx <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>DBR_hex<span class="token punctuation">[</span><span class="token number">0x2c</span><span class="token punctuation">:</span><span class="token number">0x2c</span><span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token triple-quoted-string string">"""
+    print("byte_per_sector: ", hex(byte_per_sector))
+    print("sector_per_clust: ", hex(sector_per_clust))
+    print("saved_sector: ", hex(saved_sector))
+    print("fat_nums: ", hex(fat_nums))
+    print("sector_per_fat: ", hex(sector_per_fat))
+    print("root_clust_idx: ", hex(root_clust_idx))
+    """</span>
+    <span class="token keyword">return</span> byte_per_sector<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> saved_sector<span class="token punctuation">,</span> fat_nums<span class="token punctuation">,</span> sector_per_fat<span class="token punctuation">,</span> root_clust_idx
+
+<span class="token comment"># 寻找目录项</span>
+<span class="token keyword">def</span> <span class="token function">find_file_dir_entry</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> suffix<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">,</span> max_len <span class="token operator">=</span> <span class="token number">0x10000000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    k <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token comment"># 短文件名</span>
+    <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">8</span> <span class="token keyword">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>suffix<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">3</span><span class="token punctuation">:</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            dentry <span class="token operator">=</span> disk<span class="token punctuation">.</span>read<span class="token punctuation">(</span>root_dir_entry_offset<span class="token operator">+</span><span class="token number">0x20</span><span class="token operator">*</span>k<span class="token punctuation">)</span>
+            disk<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token comment">#    print(dentry[-0x20:])</span>
+            dentry <span class="token operator">=</span> dentry<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">0x20</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+            k <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token comment">#    binary_dump(dentry)</span>
+        <span class="token comment">#    print("======================================")</span>
+        <span class="token comment">#    print(str(dentry[:len(filename)]))</span>
+        <span class="token comment">#    print(str(dentry[8:8+len(suffix)]))</span>
+        <span class="token comment">#    print(dentry[0])</span>
+            <span class="token keyword">if</span> <span class="token builtin">str</span><span class="token punctuation">(</span>dentry<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token builtin">len</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span> 
+                <span class="token comment">#print("good")</span>
+                <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>suffix<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">or</span> <span class="token builtin">str</span><span class="token punctuation">(</span>dentry<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>suffix<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span>suffix<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token comment">#    print("good")</span>
+                    <span class="token keyword">break</span>
+            <span class="token keyword">if</span> k <span class="token operator">&gt;</span> max_len<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">False</span>
+        <span class="token keyword">return</span> dentry<span class="token punctuation">,</span> <span class="token boolean">True</span>
+    <span class="token comment"># 长文件名</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        continue_flag <span class="token operator">=</span> <span class="token boolean">False</span>
+        idx <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">24</span><span class="token punctuation">,</span> <span class="token number">28</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span>
+        length <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token operator">+</span><span class="token builtin">len</span><span class="token punctuation">(</span>suffix<span class="token punctuation">)</span> 
+        dentry_num <span class="token operator">=</span> length <span class="token operator">//</span> <span class="token number">13</span> <span class="token operator">+</span> <span class="token number">1</span>
+        first_num <span class="token operator">=</span> length <span class="token operator">%</span> <span class="token number">13</span>
+        <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>suffix<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span> file_name <span class="token operator">=</span> filename<span class="token operator">+</span><span class="token string">"."</span><span class="token operator">+</span>suffix
+        <span class="token keyword">else</span><span class="token punctuation">:</span> file_name <span class="token operator">=</span> filename
+        file_name_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>dentry_num<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            file_name_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>file_name<span class="token punctuation">[</span>i<span class="token operator">*</span><span class="token number">13</span><span class="token punctuation">:</span>i<span class="token operator">*</span><span class="token number">13</span><span class="token operator">+</span><span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> first_num<span class="token punctuation">:</span> file_name_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>file_name<span class="token punctuation">[</span><span class="token punctuation">(</span>dentry_num<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">13</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        file_name_list <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">reversed</span><span class="token punctuation">(</span>file_name_list<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment">#print(file_name_list)</span>
+        <span class="token comment">#print(first_num)</span>
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> k <span class="token operator">&gt;</span> max_len<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">False</span>
+            continue_flag <span class="token operator">=</span> <span class="token boolean">False</span>
+            dentrys_origin <span class="token operator">=</span> disk<span class="token punctuation">.</span>read<span class="token punctuation">(</span>root_dir_entry_offset<span class="token operator">+</span><span class="token number">0x20</span><span class="token operator">*</span><span class="token punctuation">(</span>k<span class="token operator">+</span>dentry_num<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            disk<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+            dentrys_origin <span class="token operator">=</span> dentrys_origin<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">0x20</span><span class="token operator">*</span><span class="token punctuation">(</span>dentry_num<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+            <span class="token comment">#binary_dump(dentrys_origin)</span>
+            dentrys <span class="token operator">=</span> <span class="token punctuation">[</span>dentrys_origin<span class="token punctuation">[</span>i<span class="token operator">*</span><span class="token number">0x20</span><span class="token punctuation">:</span>i<span class="token operator">*</span><span class="token number">0x20</span><span class="token operator">+</span><span class="token number">0x20</span><span class="token punctuation">]</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>dentry_num<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>dentrys<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> dentrys<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> str_to_hex<span class="token punctuation">(</span>dentrys<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token comment">#print(dentry_num)</span>
+            <span class="token keyword">if</span> <span class="token builtin">int</span><span class="token punctuation">(</span>dentrys<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0xe5</span><span class="token punctuation">:</span>
+                k <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token keyword">continue</span>
+            <span class="token keyword">if</span> first_num<span class="token punctuation">:</span>
+                <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>first_num<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token comment">#print(str.upper(file_name_list[0][i]))</span>
+                    <span class="token comment">#print(str.upper(chr(int(dentrys[0][idx[i]], 16))))</span>
+                    <span class="token keyword">if</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>dentrys<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>idx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span>file_name_list<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                        continue_flag <span class="token operator">=</span> <span class="token boolean">True</span>
+                        <span class="token keyword">break</span>
+                   <span class="token comment">#else:</span>
+                        <span class="token comment">#print(str.upper(chr(int(dentrys[0][idx[i]], 16))), end="")</span>
+                        <span class="token comment">#print("good")</span>
+            <span class="token keyword">if</span> first_num<span class="token punctuation">:</span> m <span class="token operator">=</span> <span class="token number">1</span> 
+            <span class="token keyword">else</span><span class="token punctuation">:</span> m <span class="token operator">=</span> <span class="token number">0</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> dentry_num<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    <span class="token keyword">if</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>dentrys<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>idx<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token builtin">str</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span>file_name_list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                        continue_flag <span class="token operator">=</span> <span class="token boolean">True</span>
+                        <span class="token keyword">break</span>
+                    <span class="token comment">#else:</span>
+                        <span class="token comment">#print(str.upper(chr(int(dentrys[i][idx[j]], 16))), end="")</span>
+            
+            <span class="token keyword">if</span> continue_flag <span class="token operator">==</span> <span class="token boolean">True</span><span class="token punctuation">:</span> 
+                k <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token keyword">continue</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token comment">#    binary_dump(dentrys_origin)</span>
+            <span class="token comment">#    print("good")</span>
+                <span class="token keyword">break</span>
+
+    <span class="token comment">#    print(dentrys)</span>
+    <span class="token comment">#    print(file_name)</span>
+    <span class="token comment">#    print(dentrys_origin)</span>
+    <span class="token comment">#    print(dentrys_origin[dentry_num*0x20:])</span>
+        <span class="token keyword">return</span> dentrys_origin<span class="token punctuation">[</span>dentry_num<span class="token operator">*</span><span class="token number">0x20</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">True</span>
+
+<span class="token comment"># 通过目录项获取起始簇号</span>
+<span class="token keyword">def</span> <span class="token function">get_clust_idx_and_file_size_by_dentry</span><span class="token punctuation">(</span>dentry<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    dentry_hex <span class="token operator">=</span>  str_to_hex<span class="token punctuation">(</span>dentry<span class="token punctuation">)</span>
+<span class="token comment">#    print(dentry_hex)</span>
+    high <span class="token operator">=</span> dentry_hex<span class="token punctuation">[</span><span class="token number">0x14</span><span class="token punctuation">:</span><span class="token number">0x14</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span>
+    low <span class="token operator">=</span> dentry_hex<span class="token punctuation">[</span><span class="token number">0x1a</span><span class="token punctuation">:</span><span class="token number">0x1a</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span>
+    clust_idx_hex <span class="token operator">=</span> low <span class="token operator">+</span> high
+<span class="token comment">#    print(high)</span>
+<span class="token comment">#    print(low)</span>
+<span class="token comment">#    print(clust_idx_hex)</span>
+    clust_idx <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>clust_idx_hex<span class="token punctuation">)</span>
+    file_size <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>dentry_hex<span class="token punctuation">[</span><span class="token number">0x1c</span><span class="token punctuation">:</span><span class="token number">0x1c</span><span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment">#    print(hex(clust_idx))</span>
+    <span class="token keyword">return</span> clust_idx<span class="token punctuation">,</span> file_size
+
+<span class="token comment"># 通过起始簇号在 FAT 表中找出簇链</span>
+<span class="token keyword">def</span> <span class="token function">get_clust_list_by_fat</span><span class="token punctuation">(</span>clust_idx<span class="token punctuation">,</span> fat_offset<span class="token punctuation">,</span> fat_size<span class="token punctuation">,</span> disk<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    clust_idx_list<span class="token punctuation">,</span> flag <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">True</span>
+    fat <span class="token operator">=</span> disk<span class="token punctuation">.</span>read<span class="token punctuation">(</span>fat_offset<span class="token operator">+</span>fat_size<span class="token punctuation">)</span><span class="token punctuation">[</span>fat_offset<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">.</span>decode<span class="token punctuation">(</span>encoding<span class="token operator">=</span><span class="token string">'latin-1'</span><span class="token punctuation">)</span>
+    disk<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token comment">#    binary_dump(fat, 0x100)</span>
+    fat_hex <span class="token operator">=</span> str_to_hex<span class="token punctuation">(</span>fat<span class="token punctuation">)</span>
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    <span class="token comment">#    print(hex(clust_idx))</span>
+        clust_idx_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>clust_idx<span class="token punctuation">)</span>
+        clust_idx <span class="token operator">=</span> hex_to_num<span class="token punctuation">(</span>fat_hex<span class="token punctuation">[</span>clust_idx<span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">:</span>clust_idx<span class="token operator">*</span><span class="token number">4</span><span class="token operator">+</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> clust_idx <span class="token operator">==</span> <span class="token number">0xffffff7</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"出现坏簇{0}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>clust_idx<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+        <span class="token keyword">if</span> clust_idx <span class="token operator">==</span> <span class="token number">0xfffffff</span> <span class="token keyword">or</span> clust_idx <span class="token operator">==</span> <span class="token number">0xffffff8</span><span class="token punctuation">:</span> <span class="token keyword">break</span>
+        <span class="token keyword">if</span> clust_idx <span class="token operator">&gt;=</span> <span class="token number">2</span> <span class="token keyword">and</span> clust_idx <span class="token operator">&lt;=</span> <span class="token number">0xfffffef</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+
+    <span class="token keyword">return</span> clust_idx_list
+
+<span class="token comment"># 找目录项, 其实就是对 find_file_dir_entry 的一个封装, 这里我只是为了方便而已</span>
+<span class="token keyword">def</span> <span class="token function">find_sub_dir_clust_idx_list</span><span class="token punctuation">(</span>dir_name<span class="token punctuation">,</span> parent_clust_idx_list<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> root_clust_idx<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> byte_per_sector<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> suffix<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    flag<span class="token punctuation">,</span> dentry <span class="token operator">=</span> <span class="token boolean">False</span><span class="token punctuation">,</span> <span class="token string">""</span>
+    <span class="token keyword">for</span> clust_idx <span class="token keyword">in</span> parent_clust_idx_list<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> flag<span class="token punctuation">:</span> <span class="token keyword">break</span>
+        <span class="token triple-quoted-string string">"""
+        file_clust_offset = root_dir_entry_offset + (clust_idx - root_clust_idx)*sector_per_clust*byte_per_sector
+#        print("file_clust_offset:", hex(file_clust_offset))
+        content = disk.read(file_clust_offset+sector_per_clust*byte_per_sector)[file_clust_offset:].decode(encoding='latin-1')
+        disk.seek(0)
+        for i in range(0, len(content), 0x20):
+            dentry = content[i:i+0x20]
+            if str(dentry[:len(dir_name)]) == str.upper(dir_name):
+                flag = True
+                break
+        """</span>
+        dir_offset <span class="token operator">=</span> root_dir_entry_offset <span class="token operator">+</span> <span class="token punctuation">(</span>clust_idx <span class="token operator">-</span> root_clust_idx<span class="token punctuation">)</span><span class="token operator">*</span>sector_per_clust<span class="token operator">*</span>byte_per_sector
+        max_len <span class="token operator">=</span> sector_per_clust<span class="token operator">*</span>byte_per_sector <span class="token operator">//</span> <span class="token number">0x20</span>
+        dentry<span class="token punctuation">,</span> flag <span class="token operator">=</span> find_file_dir_entry<span class="token punctuation">(</span>dir_name<span class="token punctuation">,</span> dir_offset<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> suffix<span class="token punctuation">,</span> max_len<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> dentry
+
+<span class="token comment"># 读取文件内容并写入新文件</span>
+<span class="token keyword">def</span> <span class="token function">read_file_by_clust_list</span><span class="token punctuation">(</span>filename<span class="token punctuation">,</span> suffix<span class="token punctuation">,</span> clust_idx_list<span class="token punctuation">,</span> file_size<span class="token punctuation">,</span> root_clust_idx<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> byte_per_sector<span class="token punctuation">,</span> disk<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span>filename<span class="token operator">+</span><span class="token string">"2."</span><span class="token operator">+</span>suffix<span class="token punctuation">,</span> <span class="token string">"wb"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>clust_idx_list<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            clust_idx <span class="token operator">=</span> clust_idx_list<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            file_clust_offset <span class="token operator">=</span> root_dir_entry_offset <span class="token operator">+</span> <span class="token punctuation">(</span>clust_idx <span class="token operator">-</span> root_clust_idx<span class="token punctuation">)</span><span class="token operator">*</span>sector_per_clust<span class="token operator">*</span>byte_per_sector
+            content <span class="token operator">=</span> disk<span class="token punctuation">.</span>read<span class="token punctuation">(</span>file_clust_offset<span class="token operator">+</span>sector_per_clust<span class="token operator">*</span>byte_per_sector<span class="token punctuation">)</span><span class="token punctuation">[</span>file_clust_offset<span class="token punctuation">:</span><span class="token punctuation">]</span>
+            disk<span class="token punctuation">.</span>seek<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span>clust_idx_list<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token keyword">and</span> <span class="token punctuation">(</span>file_size <span class="token operator">%</span> <span class="token punctuation">(</span>sector_per_clust<span class="token operator">*</span>byte_per_sector<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                content <span class="token operator">=</span> content<span class="token punctuation">[</span><span class="token punctuation">:</span>file_size<span class="token operator">-</span>sector_per_clust<span class="token operator">*</span>byte_per_sector<span class="token operator">*</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>clust_idx_list<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+            f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>content<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\n\"{0}\" 的文件内容已经存入 \"{1}\"\n"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>filename<span class="token operator">+</span><span class="token string">"."</span><span class="token operator">+</span>suffix<span class="token punctuation">,</span> filename<span class="token operator">+</span><span class="token string">"2."</span><span class="token operator">+</span>suffix<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    file_list_str <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span>
+    file_list_str<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> suffix <span class="token operator">=</span> file_list_str<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>rsplit<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span> maxsplit<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> file_list_str<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>rsplit<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span> maxsplit<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token comment">#    print(file_list_str)</span>
+<span class="token comment">#    print(suffix)</span>
+
+    disk <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">r'\\.\\'</span> <span class="token operator">+</span> file_list_str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'rb'</span><span class="token punctuation">)</span>
+    byte_per_sector<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> saved_sector<span class="token punctuation">,</span> fat_nums<span class="token punctuation">,</span> sector_per_fat<span class="token punctuation">,</span> root_clust_idx <span class="token operator">=</span> read_BPB<span class="token punctuation">(</span>disk<span class="token punctuation">)</span>
+    root_dir_entry_offset <span class="token operator">=</span> <span class="token punctuation">(</span>saved_sector <span class="token operator">+</span> fat_nums<span class="token operator">*</span>sector_per_fat<span class="token punctuation">)</span> <span class="token operator">*</span> byte_per_sector
+<span class="token comment">#    print(file_list_str)</span>
+<span class="token comment">#    print("root_dir_entry_offset: ", hex(root_dir_entry_offset))</span>
+    <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>file_list_str<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">:</span>
+        dentry<span class="token punctuation">,</span> _ <span class="token operator">=</span>  find_file_dir_entry<span class="token punctuation">(</span>file_list_str<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> suffix<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        dentry<span class="token punctuation">,</span> _ <span class="token operator">=</span>  find_file_dir_entry<span class="token punctuation">(</span>file_list_str<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> disk<span class="token punctuation">)</span>
+<span class="token comment">#    binary_dump(dentry)</span>
+
+    clust_idx<span class="token punctuation">,</span> file_size <span class="token operator">=</span> get_clust_idx_and_file_size_by_dentry<span class="token punctuation">(</span>dentry<span class="token punctuation">)</span>
+<span class="token comment">#    print("clust_idx: ", hex(clust_idx))</span>
+<span class="token comment">#    print("file_size: ", hex(file_size))</span>
+
+    fat_offset <span class="token operator">=</span> saved_sector <span class="token operator">*</span> byte_per_sector
+    fat_size <span class="token operator">=</span> fat_nums <span class="token operator">*</span> sector_per_fat <span class="token operator">*</span> byte_per_sector
+<span class="token comment">#    print("fat_offset: ", hex(fat_offset))</span>
+    clust_idx_list <span class="token operator">=</span> get_clust_list_by_fat<span class="token punctuation">(</span>clust_idx<span class="token punctuation">,</span> fat_offset<span class="token punctuation">,</span> fat_size<span class="token punctuation">,</span> disk<span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>file_list_str<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token builtin">len</span><span class="token punctuation">(</span>file_list_str<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+            dentry <span class="token operator">=</span> find_sub_dir_clust_idx_list<span class="token punctuation">(</span>file_list_str<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> clust_idx_list<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> root_clust_idx<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> byte_per_sector<span class="token punctuation">,</span> disk<span class="token punctuation">,</span> suffix<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            dentry <span class="token operator">=</span> find_sub_dir_clust_idx_list<span class="token punctuation">(</span>file_list_str<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> clust_idx_list<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> root_clust_idx<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> byte_per_sector<span class="token punctuation">,</span> disk<span class="token punctuation">)</span>
+        <span class="token comment">#binary_dump(dentry)</span>
+        clust_idx<span class="token punctuation">,</span> file_size <span class="token operator">=</span> get_clust_idx_and_file_size_by_dentry<span class="token punctuation">(</span>dentry<span class="token punctuation">)</span>
+        <span class="token comment">#print("{0} 2".format(hex(clust_idx)))</span>
+        clust_idx_list <span class="token operator">=</span> get_clust_list_by_fat<span class="token punctuation">(</span>clust_idx<span class="token punctuation">,</span> fat_offset<span class="token punctuation">,</span> fat_size<span class="token punctuation">,</span> disk<span class="token punctuation">)</span>
+        <span class="token comment">#print("{0} 3".format(i))</span>
+    
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\"{0}\" 的短文件名目录项为: \n"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span>
+    binary_dump<span class="token punctuation">(</span>dentry<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"     起始簇号为: "</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>clust_idx<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"     实际文件长度为: "</span><span class="token punctuation">,</span> <span class="token builtin">hex</span><span class="token punctuation">(</span>file_size<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 输出文件簇链</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\n\"{0}\" 的簇链为: \n     "</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> clust_idx_list<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">hex</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">" ==&gt; "</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"0xfffffff(结束标志)"</span><span class="token punctuation">)</span>
+
+    read_file_by_clust_list<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">.</span>rsplit<span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span> maxsplit<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> suffix<span class="token punctuation">,</span> clust_idx_list<span class="token punctuation">,</span> file_size<span class="token punctuation">,</span> root_clust_idx<span class="token punctuation">,</span> root_dir_entry_offset<span class="token punctuation">,</span> sector_per_clust<span class="token punctuation">,</span> byte_per_sector<span class="token punctuation">,</span> disk<span class="token punctuation">)</span>
+    
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    
+<span class="token comment">#    filename = input("请输入正确格式的\033[31m绝对文件路径, 其中路径用 \"/\" 进行分割\033[0m, 如 \033[32m\"F:/lab/123/test.txt\"\033[0m : ")</span>
+<span class="token comment">#    filename = "F:/321/123/456/789/zbp_c.txt"</span>
+<span class="token comment">#    filename = "F:/123456789ABCDEFJLMOPQRESUVWXYZ.txt"</span>
+<span class="token comment">#    filename = "F:/PPPP.docx"</span>
+<span class="token comment">#    filename = "F:/GFEDCBA9876543210/132/ABCDEFHJHQDJHHJJHHHHHD/132dsa1d321s32a1dqw5/123456789ABCDEFJLMOPQRESUVWXYZ.txt"</span>
+<span class="token comment">#    filename = "F:/GFEDCBA9876543210/132/xx.txt"    </span>
+    
+    <span class="token comment"># 将 filename 替换成自己的文件即可</span>
+    <span class="token comment"># filename = "F:/GFEDCBA9876543210/132/ABCDEFHJHQDJHHJJHHHHHD/132dsa1d321s32a1dqw5/xxx/123456789ABCDEFJLMOPQRESUVWXYZ.docx"</span>
+    filename <span class="token operator">=</span> <span class="token string">"F:/zbp_c.txt"</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"请注意, \033[31m文件路径必须是绝对路径, 且用 \"/\" 进行分割\033[0m, 如 \033[32m\"F:/lab/123/test.txt\"\033[0m"</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isfile<span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"正在尝试解析该文件, 请耐心等待......"</span><span class="token punctuation">)</span>
+        run<span class="token punctuation">(</span>filename<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"\"{0}\" 文件不存在"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>感谢组长大佬zqb的带领，没有他我肯定是不能独立完成实验全部内容。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">寒风渐微凉</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://lwqblog.top/2023/10/20/ruan-jian-an-quan-shi-yan-1/">https://lwqblog.top/2023/10/20/ruan-jian-an-quan-shi-yan-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">寒风渐微凉</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">软件安全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js"
+                repo="hac-kers/hac-kers.github.io"
+                issue-term="pathname"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2023/10/21/latex-xie-lun-wen-yue-du-bi-ji-wen-dang-jie-gou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="LaTex写论文阅读笔记_文档结构">
+                        
+                        <span class="card-title">LaTex写论文阅读笔记_文档结构</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LaTex/" class="post-category">
+                                    LaTex
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LaTex/">
+                        <span class="chip bg-color">LaTex</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/19/pyside6-shi-jian-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Pyside6实践_1">
+                        
+                        <span class="card-title">Pyside6实践_1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/PySide6/" class="post-category">
+                                    PySide6
+                                </a>
+                            
+                            <a href="/categories/PySide6/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="post-category">
+                                    Windows应用开发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PySide6/">
+                        <span class="chip bg-color">PySide6</span>
+                    </a>
+                    
+                    <a href="/tags/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">
+                        <span class="chip bg-color">Windows应用开发</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2024</span>
+            
+            <a href="/about" target="_blank">寒风渐微凉</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hac-kers" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiqi@whu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/wlhack2" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/wlhack2" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=413692179" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 413692179" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "https://lwqblog.top"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

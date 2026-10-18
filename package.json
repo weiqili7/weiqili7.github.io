@@ -1,0 +1,43 @@
+{
+  "name": "lwq-blog-source",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LWQ 的 Hexo + Matery 博客源码，包含公开笔记和浏览器端加密的私密笔记区。",
+  "scripts": {
+    "clean": "hexo clean",
+    "build:private": "node tools/build-private-vault.mjs",
+    "build": "npm run build:private && hexo generate",
+    "dev": "hexo server",
+    "dev:rebuild-private": "npm run build:private && hexo server",
+    "new:public": "hexo new post",
+    "new:private": "node tools/new-private-note.mjs",
+    "test": "node --test",
+    "check": "npm test && npm run clean && npm run build"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.17",
+    "hexo": "^8.1.2",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-feed": "^4.0.0",
+    "hexo-generator-index": "^4.0.0",
+    "hexo-generator-search": "^2.4.3",
+    "hexo-generator-sitemap": "^3.0.1",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-marked": "^7.0.1",
+    "hexo-server": "^3.0.0",
+    "hexo-wordcount": "^6.0.1",
+    "js-yaml": "^5.5.0",
+    "marked": "^18.1.1"
+  },
+  "devDependencies": {
+    "hexo-cli": "^4.3.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "hexo": {
+    "version": "8.1.2"
+  }
+}

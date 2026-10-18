@@ -1,0 +1,1429 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Pyside6实践_1, LWQ">
+    <meta name="description" content="做实验的时候想拷贝电子参考书代码的时候发现代码都数字序号，手动删除太麻烦了，于是边想着写一个python脚本删除序号，然后不知道怎么突发奇想想试试Python GUI。
+也是第一次接触，故记录一下。
+源代码import sys,re
+fro">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Pyside6实践_1 | LWQ</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="LWQ" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">LWQ</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>Index</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>Tags</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>Categories</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>Archives</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>About</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>Contact</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>Friends</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">LWQ</div>
+        <div class="logo-desc">
+            
+            我要上UT
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			Index
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			Tags
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			Categories
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			Archives
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			About
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/hac-kers" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/hac-kers" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Pyside6实践_1</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/PySide6/">
+                                <span class="chip bg-color">PySide6</span>
+                            </a>
+                        
+                            <a href="/tags/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">
+                                <span class="chip bg-color">Windows应用开发</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/PySide6/" class="post-category">
+                                PySide6
+                            </a>
+                        
+                            <a href="/categories/PySide6/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" class="post-category">
+                                Windows应用开发
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2023-10-19
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>做实验的时候想拷贝电子参考书代码的时候发现代码都数字序号，手动删除太麻烦了，于是边想着写一个python脚本删除序号，然后不知道怎么突发奇想想试试Python GUI。</p>
+<p>也是第一次接触，故记录一下。</p>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> sys<span class="token punctuation">,</span>re
+<span class="token keyword">from</span> PySide6<span class="token punctuation">.</span>QtWidgets <span class="token keyword">import</span> <span class="token punctuation">(</span>QLineEdit<span class="token punctuation">,</span> QPushButton<span class="token punctuation">,</span> QApplication<span class="token punctuation">,</span>
+    QVBoxLayout<span class="token punctuation">,</span> QDialog<span class="token punctuation">,</span>QLabel<span class="token punctuation">,</span>QPlainTextEdit<span class="token punctuation">,</span>QMessageBox<span class="token punctuation">,</span>QGridLayout<span class="token punctuation">)</span>
+<span class="token keyword">from</span> PySide6<span class="token punctuation">.</span>QtCore <span class="token keyword">import</span> Qt
+<span class="token keyword">from</span> PySide6<span class="token punctuation">.</span>QtGui <span class="token keyword">import</span> QIcon
+<span class="token keyword">from</span> PySide6<span class="token punctuation">.</span>QtGui <span class="token keyword">import</span> QKeyEvent<span class="token punctuation">,</span>QTextCursor<span class="token punctuation">,</span>QGuiApplication
+
+<span class="token keyword">class</span> <span class="token class-name">CustomPlainTextEdit</span><span class="token punctuation">(</span>QPlainTextEdit<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">keyPressEvent</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> event<span class="token punctuation">:</span> QKeyEvent<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> event<span class="token punctuation">.</span>key<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">int</span><span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>Key_Return<span class="token punctuation">)</span> <span class="token keyword">or</span> event<span class="token punctuation">.</span>key<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">int</span><span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>Key_Enter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>moveCursor<span class="token punctuation">(</span>QTextCursor<span class="token punctuation">.</span>End<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>insertPlainText<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>keyPressEvent<span class="token punctuation">(</span>event<span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Form</span><span class="token punctuation">(</span>QDialog<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Form<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token comment">#parent指定对话框的父窗口</span>
+        self<span class="token punctuation">.</span>label <span class="token operator">=</span> QLabel<span class="token punctuation">(</span><span class="token string">"请输入文本，将帮您实现去除每行文本开头数字序号和空格："</span><span class="token punctuation">)</span>
+        <span class="token comment"># 创建组件</span>
+        self<span class="token punctuation">.</span>edit <span class="token operator">=</span> CustomPlainTextEdit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>setFixedWidth<span class="token punctuation">(</span><span class="token number">450</span><span class="token punctuation">)</span>  <span class="token comment"># 设置宽度为200像素</span>
+        self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>setFixedHeight<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>  <span class="token comment"># 设置高度为30像素</span>
+        <span class="token comment">#self.edit.setAlignment(Qt.AlignTop)  # 将文本对齐方式设置为顶部对齐</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>button <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">"Run"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>button_copy <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">"一键复制结果"</span><span class="token punctuation">)</span>
+
+        self<span class="token punctuation">.</span>button_copy<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>copy_text<span class="token punctuation">)</span>
+        <span class="token comment"># 创建布局并添加组件</span>
+        layout <span class="token operator">=</span> QGridLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>label<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>button_copy<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>edit<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>button<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token comment"># 设置窗口图标</span>
+        icon <span class="token operator">=</span> QIcon<span class="token punctuation">(</span><span class="token string">"logo.ico"</span><span class="token punctuation">)</span>  <span class="token comment"># 替换为自己的图标路径</span>
+        self<span class="token punctuation">.</span>setWindowIcon<span class="token punctuation">(</span>icon<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">"Wq's tool"</span><span class="token punctuation">)</span>
+        <span class="token comment"># 应用布局</span>
+        self<span class="token punctuation">.</span>setLayout<span class="token punctuation">(</span>layout<span class="token punctuation">)</span>
+        <span class="token comment"># 连接greetings槽和按钮单击信号</span>
+        self<span class="token punctuation">.</span>button<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>greetings<span class="token punctuation">)</span>
+
+    <span class="token comment"># 实现对输入文本的处理，由于是对话框的输出，保持原来的函数名字greetings()</span>
+    <span class="token keyword">def</span> <span class="token function">greetings</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment">#这里在给self.lines赋值是因为似乎之前定义之前没按钮没生效，之前定义应该赋空值，懒得改了，没什么错误那就保持原样吧。。。</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i<span class="token punctuation">,</span>line <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment">#调用re.sub(正则表达式，替换后的字符，需要替换掉原味奶)</span>
+            self<span class="token punctuation">.</span>lines<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">r'^\d+\s*'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> line<span class="token punctuation">)</span>
+        <span class="token comment">#这里再开一个窗口</span>
+        message_box <span class="token operator">=</span> QMessageBox<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">"出た！"</span><span class="token punctuation">)</span>
+        <span class="token comment"># 这里还有几个默认的参数没放出来</span>
+        <span class="token comment"># message_box.setIcon(QMessageBox.Information) 默认提示框图标为信息</span>
+        <span class="token comment"># message_box.addButton(QMessageBox.Ok) 默认有一个ok键</span>
+        output_text <span class="token operator">=</span> <span class="token string">""</span>  <span class="token comment"># 初始化空字符串</span>
+
+        <span class="token keyword">for</span> line <span class="token keyword">in</span> self<span class="token punctuation">.</span>lines<span class="token punctuation">:</span>
+            output_text <span class="token operator">+=</span> line
+            output_text <span class="token operator">+=</span> <span class="token string">"\n"</span>
+        message_box<span class="token punctuation">.</span>setText<span class="token punctuation">(</span>output_text<span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setFixedSize<span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setTextInteractionFlags<span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>TextSelectableByMouse <span class="token operator">|</span> Qt<span class="token punctuation">.</span>TextSelectableByKeyboard<span class="token punctuation">)</span><span class="token comment"># 设置消息框的文本格式为可选择和可复制</span>
+        message_box<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">copy_text</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i<span class="token punctuation">,</span> line <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>lines<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">r'^\d+\s*'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> line<span class="token punctuation">)</span>
+        clipboard <span class="token operator">=</span> QGuiApplication<span class="token punctuation">.</span>clipboard<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        output_text <span class="token operator">=</span> <span class="token string">""</span>  <span class="token comment"># 初始化空字符串</span>
+
+        <span class="token keyword">for</span> line <span class="token keyword">in</span> self<span class="token punctuation">.</span>lines<span class="token punctuation">:</span>
+            output_text <span class="token operator">+=</span> line
+            output_text <span class="token operator">+=</span> <span class="token string">"\n"</span>
+        clipboard<span class="token punctuation">.</span>setText<span class="token punctuation">(</span>output_text<span class="token punctuation">)</span>  <span class="token comment"># 将输出文本设置到剪贴板</span>
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token comment"># 创建Qt应用程序</span>
+    app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+    <span class="token comment"># 创建并显示Form</span>
+    form <span class="token operator">=</span> Form<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    form<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># 运行Qt主循环</span>
+    sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="效果截图"><a href="#效果截图" class="headerlink" title="效果截图"></a>效果截图</h3><p><img src="/2023/10/19/pyside6-shi-jian-1/image-20231019215938556.png" alt="image-20231019215938556"></p>
+<p><img src="/2023/10/19/pyside6-shi-jian-1/image-20231019220033073.png" alt="image-20231019220033073"></p>
+<p>一键复制功能就不展示了，按下按钮即可复制。</p>
+<p>虽然对我来说很艰巨，但是放在github上面还是显得和大佬格格不入，自己记录一下就好了。</p>
+<p>捋一下思路</p>
+<p>先创建Qt应用程序</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">app <span class="token operator">=</span> QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>创建并显示Form(创建对话框窗口。QDialog)</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">form <span class="token operator">=</span> Form<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Form</span><span class="token punctuation">(</span>QDialog<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment">#表示创建的是QDialog的子类</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> parent<span class="token operator">=</span><span class="token boolean">None</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span>Form<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token comment">#parent指定对话框的父窗口,None即无父窗口</span>
+        self<span class="token punctuation">.</span>label <span class="token operator">=</span> QLabel<span class="token punctuation">(</span><span class="token string">"请输入文本，将帮您实现去除每行文本开头数字序号和空格："</span><span class="token punctuation">)</span>
+        <span class="token comment"># 创建组件</span>
+        self<span class="token punctuation">.</span>edit <span class="token operator">=</span> CustomPlainTextEdit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>setFixedWidth<span class="token punctuation">(</span><span class="token number">450</span><span class="token punctuation">)</span>  <span class="token comment"># 设置宽度为200像素</span>
+        self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>setFixedHeight<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>  <span class="token comment"># 设置高度为30像素</span>
+        <span class="token comment">#原本使用的是self.edit = QLineEdit(),故需要设置顶部对齐，但好像按enter不能换行</span>
+        <span class="token comment">#self.edit.setAlignment(Qt.AlignTop)  # 将文本对齐方式设置为顶部对齐</span>
+        <span class="token comment">#设置输入框里内容为self.line并且split("\n")</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment">#set functional button</span>
+        self<span class="token punctuation">.</span>button <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">"Run"</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>button_copy <span class="token operator">=</span> QPushButton<span class="token punctuation">(</span><span class="token string">"一键复制结果"</span><span class="token punctuation">)</span>
+        <span class="token comment">#将复制键和self.copy_text函数关联起来</span>
+        self<span class="token punctuation">.</span>button_copy<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>copy_text<span class="token punctuation">)</span>
+        <span class="token comment"># 创建布局并添加组件</span>
+        <span class="token comment"># 这里我原本使用的是QVBoxlayout即垂直分布，另还有QHBoxlayout</span>
+        layout <span class="token operator">=</span> QGridLayout<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>label<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>button_copy<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>edit<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        layout<span class="token punctuation">.</span>addWidget<span class="token punctuation">(</span>self<span class="token punctuation">.</span>button<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token comment"># 设置窗口图标</span>
+        icon <span class="token operator">=</span> QIcon<span class="token punctuation">(</span><span class="token string">"logo.ico"</span><span class="token punctuation">)</span>  <span class="token comment"># 替换为自己的图标路径</span>
+        self<span class="token punctuation">.</span>setWindowIcon<span class="token punctuation">(</span>icon<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">"Wq's tool"</span><span class="token punctuation">)</span>
+        <span class="token comment"># 应用布局</span>
+        self<span class="token punctuation">.</span>setLayout<span class="token punctuation">(</span>layout<span class="token punctuation">)</span>
+        <span class="token comment"># self.button连接greetings槽和按钮单击信号</span>
+        self<span class="token punctuation">.</span>button<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>greetings<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>class Form(QDialog): </p>
+<ul>
+<li><p>即<code>Form</code> 类继承自 <code>QDialog</code> 类，意味着 <code>Form</code> 类将继承 <code>QDialog</code> 类的属性和方法，并且可以在此基础上添加自己的特定行为和属性。</p>
+</li>
+<li><p><code>QDialog</code> 是Qt框架中提供的一个类，用于创建对话框窗口。对话框是一种常见的用户界面组件，用于与用户进行交互，接受输入或显示信息。</p>
+</li>
+<li><p>将 <code>Form</code> 类定义为 <code>QDialog</code> 的子类，你可以扩展 <code>QDialog</code> 类提供的功能，以满足特定的需求。可以添加自定义的布局、控件和逻辑，以及重写和扩展 <code>QDialog</code> 类中的方法来实现定制化的对话框窗口。</p>
+</li>
+</ul>
+<p>补充：在Python中，<code>super()</code> 函数是用于调用父类（超类）的方法。它的作用是获取当前类的父类，并调用父类的方法。<code>super(Form, self).__init__(parent)</code> 的作用是调用 <code>Form</code> 类的父类 <code>QDialog</code> 的 <code>__init__</code> 方法，并传递 <code>parent</code> 参数给它。Python中，如果一个类继承自另一个类，那么在子类中重写父类的方法时，可以使用 <code>super()</code> 来调用父类的同名方法并扩展其功能。在Python 3及以上的版本中，可以使用简化的语法 <code>super().__init__(parent)</code> 来调用父类的方法，而不需要显式地指定类名和实例对象。但在旧版本的Python中，仍然需要使用 <code>super(Form, self).__init__(parent)</code> 的形式来调用父类的方法。</p>
+<p><code>QGridLayout</code> 是一种布局管理器，用于将窗口或小部件按照网格的形式进行排列。</p>
+<p>常用的布局管理器：</p>
+<ol>
+<li>QVBoxLayout：垂直布局管理器，将小部件垂直排列。</li>
+<li>QHBoxLayout：水平布局管理器，将小部件水平排列。</li>
+<li>QFormLayout：表单布局管理器，用于创建标签和输入字段的组合。</li>
+<li>QStackedLayout：堆叠布局管理器，用于在同一区域显示多个小部件，但一次只显示一个小部件。</li>
+<li>QBoxLayout：通用的盒式布局管理器，可以将小部件水平或垂直排列。</li>
+<li>QGridLayout：网格布局管理器，以网格形式将小部件排列。</li>
+<li>QSizePolicy：调整小部件大小策略的类，可与其他布局管理器一起使用。</li>
+</ol>
+<p>这些布局管理器可以根据您的需求进行嵌套和组合使用，以创建复杂的界面布局。您可以根据小部件的类型和排列需求选择适当的布局管理器来实现所需的布局效果。</p>
+<p>然后实现与Run键相关联的函数/槽</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">greetings</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment">#这里在给self.lines赋值是因为似乎之前定义之前没按钮没生效，之前定义应该赋空值，懒得改了，没什么错误那就保持原样吧。。。</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i<span class="token punctuation">,</span>line <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment">#调用re.sub(正则表达式，替换后的字符，需要替换掉原味奶)</span>
+            self<span class="token punctuation">.</span>lines<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">r'^\d+\s*'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> line<span class="token punctuation">)</span>
+        <span class="token comment">#这里再开一个窗口</span>
+        message_box <span class="token operator">=</span> QMessageBox<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setWindowTitle<span class="token punctuation">(</span><span class="token string">"出た！"</span><span class="token punctuation">)</span>
+        <span class="token comment"># 这里还有几个默认的参数没放出来</span>
+        <span class="token comment"># message_box.setIcon(QMessageBox.Information) 默认提示框图标为信息</span>
+        <span class="token comment"># message_box.addButton(QMessageBox.Ok) 默认有一个ok键</span>
+        output_text <span class="token operator">=</span> <span class="token string">""</span>  <span class="token comment"># 初始化空字符串</span>
+
+        <span class="token keyword">for</span> line <span class="token keyword">in</span> self<span class="token punctuation">.</span>lines<span class="token punctuation">:</span> <span class="token comment">#将要输出的信息循环赋值给output_text</span>
+            output_text <span class="token operator">+=</span> line
+            output_text <span class="token operator">+=</span> <span class="token string">"\n"</span>
+        message_box<span class="token punctuation">.</span>setText<span class="token punctuation">(</span>output_text<span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setFixedSize<span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span>
+        message_box<span class="token punctuation">.</span>setTextInteractionFlags<span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>TextSelectableByMouse <span class="token operator">|</span> Qt<span class="token punctuation">.</span>TextSelectableByKeyboard<span class="token punctuation">)</span><span class="token comment"># 设置消息框的文本格式为可选择和可复制</span>
+        message_box<span class="token punctuation">.</span><span class="token keyword">exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>实现与“一键复制”关联的函数/槽</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">copy_text</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>lines <span class="token operator">=</span> <span class="token punctuation">[</span>_ <span class="token keyword">for</span> _ <span class="token keyword">in</span> self<span class="token punctuation">.</span>edit<span class="token punctuation">.</span>toPlainText<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i<span class="token punctuation">,</span> line <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>lines<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>lines<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> re<span class="token punctuation">.</span>sub<span class="token punctuation">(</span><span class="token string">r'^\d+\s*'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">,</span> line<span class="token punctuation">)</span>
+        clipboard <span class="token operator">=</span> QGuiApplication<span class="token punctuation">.</span>clipboard<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        output_text <span class="token operator">=</span> <span class="token string">""</span>  <span class="token comment"># 初始化空字符串</span>
+
+        <span class="token keyword">for</span> line <span class="token keyword">in</span> self<span class="token punctuation">.</span>lines<span class="token punctuation">:</span>
+            output_text <span class="token operator">+=</span> line
+            output_text <span class="token operator">+=</span> <span class="token string">"\n"</span>
+        clipboard<span class="token punctuation">.</span>setText<span class="token punctuation">(</span>output_text<span class="token punctuation">)</span>  <span class="token comment"># 将输出文本设置到剪贴板</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>clipboard = QGuiApplication.clipboard()</p>
+<p>clipboard.setText(output_text)  # 将输出文本设置到剪贴板</p>
+<p>这是实现将文本复制到clipboard的核心代码</p>
+<p>下面这个是自定义的 <code>QPlainTextEdit</code> 类，重写了 <code>keyPressEvent()</code> 方法以处理按键事件。在这个自定义类中，当用户按下回车键（Enter 键或 Return 键）时，会将光标移动到文本的末尾，并在末尾插入一个换行符。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">CustomPlainTextEdit</span><span class="token punctuation">(</span>QPlainTextEdit<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">keyPressEvent</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> event<span class="token punctuation">:</span> QKeyEvent<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> event<span class="token punctuation">.</span>key<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">int</span><span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>Key_Return<span class="token punctuation">)</span> <span class="token keyword">or</span> event<span class="token punctuation">.</span>key<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">int</span><span class="token punctuation">(</span>Qt<span class="token punctuation">.</span>Key_Enter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>moveCursor<span class="token punctuation">(</span>QTextCursor<span class="token punctuation">.</span>End<span class="token punctuation">)</span><span class="token comment"># 将光标移动到文本末尾</span>
+            self<span class="token punctuation">.</span>insertPlainText<span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+<span class="token comment"># 如果按下的不是回车键，则调用父类的 keyPressEvent() 方法处理其他按键事件</span>
+        <span class="token builtin">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>keyPressEvent<span class="token punctuation">(</span>event<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在这个自定义类中，我们重写了 <code>keyPressEvent()</code> 方法，并在方法体内对按键事件进行处理。如果按下的键是回车键（Enter 键或 Return 键），则会执行 <code>if</code> 语句块中的操作：将光标移动到文本的末尾，并在末尾插入一个换行符。然后，通过 <code>return</code> 语句提前结束方法的执行。</p>
+<p>如果按下的键不是回车键，则会调用父类的 <code>keyPressEvent()</code> 方法，以便处理其他按键事件的默认行为。</p>
+<h3 id="使用Nuitka"><a href="#使用Nuitka" class="headerlink" title="使用Nuitka"></a>使用Nuitka</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nuitka <span class="token parameter variable">--standalone</span> --show-memory --show-progress --windows-disable-console --nofollow-imports --plugin-enable<span class="token operator">=</span>pyside6 --follow-import-to<span class="token operator">=</span>utils,src --output-dir<span class="token operator">=</span>out --windows-icon-from-ico<span class="token operator">=</span>./logo.ico demo.py  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><p><code>--standalone</code>：方便移植到其他机器，不用再安装python</p>
+</li>
+<li><p><code>--show-memory --show-progress</code>：展示整个安装的进度过程</p>
+</li>
+<li><p><code>--windows-disable-console</code>：运行exe取消弹框。如果我们还需要调试，可能哪里还有问题之类的，就不用放上去了，但一般问题都在Pycharm解决了，就加上去</p>
+</li>
+<li><p><code>--nofollow-imports</code>：不编译代码中所有的import，比如keras，numpy之类的。</p>
+</li>
+<li><p><code>--plugin-enable=qt-plugins</code>：我这里用到pyside6来做界面的，这里nuitka有其对应的插件。还有pyqt之类的</p>
+</li>
+<li><p><code>--follow-import-to=utils,src</code>：需要编译成C++代码的指定的2个包含源码的文件夹，这里用<code>,</code>来进行分隔。</p>
+</li>
+<li><p><code>--output-dir=out</code>：指定输出的结果路径或者说输出文件夹名为out。</p>
+</li>
+<li><p><code>--windows-icon-from-ico=./logo.ico</code>：指定生成的exe的图标为logo.ico这个图标，这里使用的将图片转成ico格式文件的网站（<a target="_blank" rel="noopener" href="https://www.bitbug.net/">比特虫</a>）。</p>
+</li>
+</ul>
+<p>如果发现真正运行exe的时候，会报错：<code>no module named torch,cv2,tensorflow</code>等等这些没有转成C++的第三方包。</p>
+<p>这里需要找到这些包复制（比如numpy,cv2这个文件夹）到<code>demo.dist</code>路径下。</p>
+<p>至此，exe能完美运行啦！</p>
+<p><a target="_blank" rel="noopener" href="https://www.lixiaofei2yy.website/python%E7%9A%84%E6%89%93%E5%8C%85%E7%A5%9E%E5%99%A8nuitka">参考网站</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/133303836">其它可参考网站</a></p>
+<p>最后感谢免费的innosetup生成安装包 <a target="_blank" rel="noopener" href="https://jrsoftware.org/isinfo.php">innosetup</a></p>
+<h3 id="其它资源"><a href="#其它资源" class="headerlink" title="其它资源"></a>其它资源</h3><p><a target="_blank" rel="noopener" href="https://www.pythonguis.com/">pyside6  pythonguis</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cJ411R7bP?p=1&amp;vd_source=6fb2d8618426a162edd6fcdb1c92b705">Designer写GUI</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Author:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">寒风渐微凉</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        Link:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://lwqblog.top/2023/10/19/pyside6-shi-jian-1/">https://lwqblog.top/2023/10/19/pyside6-shi-jian-1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint policy. If reproduced, please indicate source
+                    <a href="/about" target="_blank">寒风渐微凉</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/PySide6/">
+                                    <span class="chip bg-color">PySide6</span>
+                                </a>
+                            
+                                <a href="/tags/Windows%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">
+                                    <span class="chip bg-color">Windows应用开发</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+    
+    
+        <div class="card" data-aos="fade-up">
+    <div id="utteranc-container" class="card-content">
+        <script src="https://utteranc.es/client.js"
+                repo="hac-kers/hac-kers.github.io"
+                issue-term="pathname"
+                theme="github-light"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+            <div class="card">
+                <a href="/2023/10/20/ruan-jian-an-quan-shi-yan-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="软件安全实验_1">
+                        
+                        <span class="card-title">软件安全实验_1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="post-category">
+                                    软件安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">软件安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/10/19/pyside6-shang-shou/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="PySide6上手">
+                        
+                        <span class="card-title">PySide6上手</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-10-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/PySide6/" class="post-category">
+                                    PySide6
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/PySide6/">
+                        <span class="chip bg-color">PySide6</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2024</span>
+            
+            <a href="/about" target="_blank">寒风渐微凉</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="translate">|&nbsp;繁/简：</span><a id="translateLink" href="javascript:translatePage();">繁</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;Total visits:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;Total visitors:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/hac-kers" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiqi@whu.edu.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/wlhack2" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/wlhack2" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=413692179" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 413692179" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        <script type="text/javascript" src="/js/tw_cn.js"></script>
+        <script type="text/javascript">
+          var defaultEncoding = 2; //网站编写字体是否繁体，1-繁体，2-简体
+          var translateDelay = 0; //延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0
+          var cookieDomain = "https://lwqblog.top"; //Cookie地址, 一定要设定, 通常为你的网址
+          var msgToTraditionalChinese = "繁"; //此处可以更改为你想要显示的文字
+          var msgToSimplifiedChinese = "简"; //同上，但两处均不建议更改
+          var translateButtonId = "translateLink"; //默认互换id
+          translateInitilization();
+        </script>
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
