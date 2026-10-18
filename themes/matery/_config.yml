@@ -408,7 +408,7 @@ changyan:
 # 配置是否在 header 中显示 fork me on github 的图标，默认为true，你可以修改为你的仓库地址.
 githubLink:
   enable: true
-  url: https://github.com/hac-kers
+  url: https://github.com/weiqili7
   title: GitHub
 
 # The configuration of the Twikoo comment module is not activated by default.

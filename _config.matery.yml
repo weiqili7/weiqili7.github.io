@@ -38,10 +38,10 @@ indexbtn:
   enable: true
   name: GitHub
   icon: fab fa-github-alt
-  url: https://github.com/hac-kers
+  url: https://github.com/weiqili7
 
 socialLink:
-  github: https://github.com/hac-kers
+  github: https://github.com/weiqili7
   email: ""
   facebook: ""
   twitter: ""
@@ -80,7 +80,7 @@ dream:
 
 githubLink:
   enable: true
-  url: https://github.com/hac-kers
+  url: https://github.com/weiqili7
   title: GitHub
 
 toc:
