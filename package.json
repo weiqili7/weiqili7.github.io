@@ -7,6 +7,7 @@
     "clean": "hexo clean",
     "build:private": "node tools/build-private-vault.mjs",
     "build": "npm run build:private && hexo generate",
+    "deploy": "npm run build && node tools/deploy-site.mjs",
     "dev": "hexo server",
     "dev:rebuild-private": "npm run build:private && hexo server",
     "new:public": "hexo new post",

@@ -1,8 +1,8 @@
 # LWQ Blog
 
-用于恢复 `weiqili7.github.io` / `lwqblog.top` 的 Hexo + Matery 源项目。
+用于维护 `weiqili7.github.io` 的 Hexo + Matery 源项目。
 
-当前项目只负责本地写作、加密和构建，**没有配置部署器，也不会覆盖线上旧站**。旧站 2024-03-12 的静态发布版本保存在 `legacy/site/`；生成新站时会把旧文件补进 `public/`，但不会覆盖新站已经生成的同名文件。
+源码保存在远端 `source` 分支，生成后的静态站发布到 `main` 分支。旧站 2024-03-12 的原始发布版本另存于远端 `legacy-2024-03-12` 分支，并在本地保留于 `legacy/site/`。生成新站时会把旧文件补进 `public/`，但不会覆盖新站已经生成的同名文件。
 
 ## 快速开始
 
@@ -66,6 +66,30 @@ npm run dev
 
 如果 `private-notes/` 中存在笔记而没有有效密码，构建会直接失败，不会意外发布明文。
 
+## 发布到 GitHub Pages
+
+公开和私密内容都更新完后，在 zsh 中运行：
+
+```bash
+read -s "PRIVATE_BLOG_PASSWORD?私密区密码："
+echo
+export PRIVATE_BLOG_PASSWORD
+npm run deploy
+unset PRIVATE_BLOG_PASSWORD
+```
+
+`npm run deploy` 会先重新加密私密笔记并生成 Hexo 静态站，然后只把 `public/` 发布到远端 `main` 分支。`private-notes/` 中的 Markdown 明文不会进入发布分支；GitHub Actions 会在推送后自动更新 Pages。
+
+如果还希望把公开 Markdown 和项目配置备份到远端源码分支，可在确认改动后运行：
+
+```bash
+git add source package.json package-lock.json README.md tools
+git commit -m "Update blog content"
+git push origin source
+```
+
+私密 Markdown 已被 Git 忽略，只保存在本机，请自行做好安全备份。
+
 ### 加密模型
 
 - 整个笔记数据包（标题、日期、标签、目录来源和正文）使用 AES-256-GCM 加密。
@@ -90,7 +114,8 @@ Hexo 的 `after_generate` 钩子执行以下规则：
 
 ```text
 .
-├── _config.yml              # Hexo 站点配置（无部署目标）
+├── .github/workflows/       # GitHub Pages 静态站部署工作流
+├── _config.yml              # Hexo 站点配置
 ├── _config.matery.yml       # Matery 主题覆盖配置
 ├── legacy/site/             # 旧站静态快照
 ├── private-notes/           # 私密 Markdown，本地保存且 Git 忽略
@@ -108,10 +133,10 @@ Hexo 的 `after_generate` 钩子执行以下规则：
 
 实际使用时只构建自己信任的 Markdown、配置与主题文件，并在 Hexo/Matery 发布兼容更新后再升级锁文件。
 
-## 部署前清单
+## 发布安全清单
 
-- 先备份并确认旧 GitHub Pages 仓库；
 - 检查 `public/` 中旧文章路径是否完整；
 - 用测试密码在本地验证私密区的解锁、刷新保持和手动锁定；
 - 确认 `public/private/vault.json` 搜索不到任何私密标题或正文；
-- 明确部署分支和回滚方式后，再单独添加部署流程。
+- 确认待发布内容中不包含 `.env` 或 `private-notes/` 明文；
+- 如需回滚旧站，可从远端 `legacy-2024-03-12` 分支恢复。
