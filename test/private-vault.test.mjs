@@ -68,10 +68,35 @@ test("存在私密笔记时拒绝空密码或弱密码", async () => {
 
   try {
     await mkdir(notesDir);
-    await writeFile(join(notesDir, "secret.md"), "---\ntitle: Secret\n---\nbody\n", "utf8");
+    await writeFile(
+      join(notesDir, "secret.md"),
+      "---\ntitle: Secret\ntags: [private]\n---\nbody\n",
+      "utf8",
+    );
     await assert.rejects(
       buildVault({ notesDir, outputDir, password: "123" }),
       /PRIVATE_BLOG_PASSWORD/,
+    );
+  } finally {
+    await rm(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("每篇私密笔记必须至少包含一个非空标签", async () => {
+  const temporaryRoot = await mkdtemp(join(tmpdir(), "lwq-private-vault-"));
+  const notesDir = join(temporaryRoot, "notes");
+  const outputDir = join(temporaryRoot, "output");
+
+  try {
+    await mkdir(notesDir);
+    await writeFile(
+      join(notesDir, "untagged.md"),
+      '---\ntitle: Untagged\ntags: ["", "   "]\n---\nbody\n',
+      "utf8",
+    );
+    await assert.rejects(
+      buildVault({ notesDir, outputDir, password: "valid-password" }),
+      /至少包含一个标签/,
     );
   } finally {
     await rm(temporaryRoot, { recursive: true, force: true });

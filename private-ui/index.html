@@ -56,18 +56,31 @@
       </section>
 
       <section id="vault" class="vault" hidden>
-        <aside class="sidebar" aria-label="私密笔记列表">
-          <div class="sidebar-heading">
-            <div>
-              <p class="eyebrow">UNLOCKED</p>
-              <h1>私密笔记</h1>
+        <div class="sidebar-column">
+          <aside class="sidebar" aria-label="私密笔记列表">
+            <div class="sidebar-heading">
+              <div>
+                <p class="eyebrow">UNLOCKED</p>
+                <h1>私密笔记</h1>
+              </div>
+              <span id="note-count" class="count"></span>
             </div>
-            <span id="note-count" class="count"></span>
-          </div>
-          <label class="search-label" for="note-search">搜索已解锁内容</label>
-          <input id="note-search" class="search" type="search" placeholder="标题或标签" />
-          <ol id="note-list" class="note-list"></ol>
-        </aside>
+            <label class="search-label" for="note-search">搜索已解锁内容</label>
+            <input id="note-search" class="search" type="search" placeholder="标题或标签" />
+            <ol id="note-list" class="note-list"></ol>
+          </aside>
+
+          <section class="tag-card" aria-labelledby="tag-filter-title">
+            <div class="tag-card-heading">
+              <div>
+                <p class="eyebrow">TAGS</p>
+                <h2 id="tag-filter-title">标签</h2>
+              </div>
+              <span id="tag-count" class="count"></span>
+            </div>
+            <div id="tag-filter" class="tag-filter" aria-label="按标签筛选文章"></div>
+          </section>
+        </div>
 
         <article id="reader" class="reader" tabindex="-1">
           <p class="eyebrow">PRIVATE NOTE</p>

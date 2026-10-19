@@ -41,10 +41,10 @@ Markdown 会出现在 `source/_posts/`。普通文章可以修改 Front Matter �
 新建私密笔记：
 
 ```bash
-npm run new:private -- "笔记标题"
+npm run new:private -- "笔记标题" "标签1,标签2"
 ```
 
-明文文件写入 `private-notes/`，该目录中的 Markdown 已被 `.gitignore` 排除。写作格式可参考 `private-notes.example/first-private-note.md`。
+明文文件写入 `private-notes/`，该目录中的 Markdown 已被 `.gitignore` 排除。每篇私密笔记必须至少设置一个标签；多个标签用英文逗号分隔。解锁私密区后，左侧标签卡片会统计每个标签的文章数，并支持与搜索框组合筛选。写作格式可参考 `private-notes.example/first-private-note.md`。
 
 构建前设置一个至少 4 个字符的密码。为避免密码进入 shell 历史，在 zsh 中可使用：
 

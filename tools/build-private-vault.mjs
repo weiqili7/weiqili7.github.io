@@ -34,7 +34,8 @@ async function listMarkdownFiles(root) {
 
 function normalizeTags(tags) {
   if (!tags) return [];
-  return Array.isArray(tags) ? tags.map(String) : [String(tags)];
+  const values = Array.isArray(tags) ? tags : [tags];
+  return [...new Set(values.map((tag) => String(tag).trim()).filter(Boolean))];
 }
 
 function normalizeDate(value) {
@@ -146,6 +147,11 @@ export async function buildVault({
   iterations = DEFAULT_ITERATIONS,
 } = {}) {
   const notes = await readPrivateNotes(notesDir);
+
+  const noteWithoutTags = notes.find((note) => note.tags.length === 0);
+  if (noteWithoutTags) {
+    throw new Error(`私密笔记必须至少包含一个标签：${noteWithoutTags.title}`);
+  }
 
   if (notes.length > 0 && (!password || password.length < 4)) {
     throw new Error(
