@@ -14,6 +14,8 @@ const elements = {
   lock: document.querySelector("#lock-button"),
   vault: document.querySelector("#vault"),
   count: document.querySelector("#note-count"),
+  tagCount: document.querySelector("#tag-count"),
+  tagFilter: document.querySelector("#tag-filter"),
   list: document.querySelector("#note-list"),
   search: document.querySelector("#note-search"),
   reader: document.querySelector("#reader"),
@@ -25,6 +27,7 @@ const elements = {
 
 let encryptedVault;
 let notes = [];
+let selectedTag = "";
 
 function fromBase64(value) {
   return Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
@@ -156,6 +159,7 @@ function renderList(query = "") {
   elements.list.replaceChildren();
   const needle = query.trim().toLocaleLowerCase("zh-CN");
   const filtered = notes.filter((note) => {
+    if (selectedTag && !note.tags.includes(selectedTag)) return false;
     const haystack = `${note.title} ${note.tags.join(" ")}`.toLocaleLowerCase("zh-CN");
     return haystack.includes(needle);
   });
@@ -185,14 +189,61 @@ function renderList(query = "") {
     empty.textContent = "没有匹配的笔记";
     elements.list.append(empty);
   }
+
+  return filtered;
+}
+
+function renderTagFilters() {
+  const tagCounts = new Map();
+  for (const note of notes) {
+    for (const tag of new Set(note.tags)) {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+    }
+  }
+
+  const filters = [
+    { tag: "", label: "全部", count: notes.length },
+    ...[...tagCounts.entries()]
+      .sort(([tagA, countA], [tagB, countB]) => countB - countA || tagA.localeCompare(tagB))
+      .map(([tag, count]) => ({ tag, label: tag, count })),
+  ];
+
+  elements.tagFilter.replaceChildren();
+  elements.tagCount.textContent = `${tagCounts.size} 个`;
+
+  for (const filter of filters) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tag-filter-button";
+    button.dataset.tag = filter.tag;
+    button.setAttribute("aria-pressed", String(filter.tag === selectedTag));
+
+    const label = document.createElement("span");
+    label.textContent = filter.label;
+    const count = document.createElement("span");
+    count.className = "tag-filter-count";
+    count.textContent = String(filter.count);
+    button.append(label, count);
+    button.addEventListener("click", () => {
+      selectedTag = filter.tag;
+      document.querySelectorAll(".tag-filter-button").forEach((item) => {
+        item.setAttribute("aria-pressed", String(item.dataset.tag === selectedTag));
+      });
+      const filteredNotes = renderList(elements.search.value);
+      if (filteredNotes.length) selectNote(filteredNotes[0]);
+    });
+    elements.tagFilter.append(button);
+  }
 }
 
 function showUnlocked(payload) {
   notes = payload.notes || [];
+  selectedTag = "";
   elements.unlockPanel.hidden = true;
   elements.vault.hidden = false;
   elements.lock.hidden = false;
   elements.count.textContent = `${notes.length} 篇`;
+  renderTagFilters();
   renderList();
   const hashId = location.hash.startsWith("#note-") ? location.hash.slice(6) : "";
   selectNote(notes.find((note) => note.id === hashId) || notes[0]);
@@ -201,8 +252,11 @@ function showUnlocked(payload) {
 function lockVault() {
   sessionStorage.removeItem(STORAGE_KEY);
   notes = [];
+  selectedTag = "";
   elements.body.replaceChildren();
   elements.list.replaceChildren();
+  elements.tagFilter.replaceChildren();
+  elements.tagCount.textContent = "";
   elements.toc.replaceChildren();
   elements.title.textContent = "";
   elements.meta.textContent = "";
